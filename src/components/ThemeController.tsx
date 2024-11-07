@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Theme } from '../enums/Theme.enum';
+import { useTheme } from '../providers/ThemeProvider';
 
 const ThemeController: React.FC = () => {
+  const { theme, changeTheme } = useTheme();
+  const [themes, _] = useState<Theme[]>(() => Object.values(Theme));
+
   return (
     <div className="dropdown">
-      <div tabIndex={0} role="button" className="btn m-1">
-        Theme
+      <div tabIndex={0} role="button" className="btn btn-sm m-1">
+        {theme}
         <svg
           width="12px"
           height="12px"
@@ -19,42 +24,18 @@ const ThemeController: React.FC = () => {
         tabIndex={0}
         className="dropdown-content bg-base-300 rounded-box z-[1] w-52 p-2 shadow-2xl"
       >
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Serika Dark"
-            value="serikaDark"
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Serika Light"
-            value="serikaLight"
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Solarized Dark"
-            value="solarizedDark"
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Solarized Light"
-            value="solarizedLight"
-          />
-        </li>
+        {themes.map((theme: Theme, idx: number) => (
+          <li key={idx}>
+            <input
+              type="radio"
+              name="theme-dropdown"
+              className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+              aria-label={theme}
+              value={theme}
+              onClick={() => changeTheme(theme)}
+            />
+          </li>
+        ))}
       </ul>
     </div>
   );
