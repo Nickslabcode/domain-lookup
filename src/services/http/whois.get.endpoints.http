@@ -1,0 +1,3 @@
+
+GET https://api.apilayer.com/whois/query?domain={{VITE_DOMAIN}}
+apikey:{{VITE_API_KEY}}

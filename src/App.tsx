@@ -1,6 +1,7 @@
 import './App.css';
 import ThemeController from './components/ThemeController';
 import { ThemeProvider } from './providers/ThemeProvider';
+import { getDomainInfo } from './services/whois.service';
 
 function App() {
   return (
@@ -15,6 +16,12 @@ function App() {
           <button className="btn btn-primary">primary</button>
           <button className="btn btn-secondary">secondary</button>
         </div>
+        <button
+          className="btn btn-info"
+          onClick={() => getDomainInfo('nikola-nenovski.info')}
+        >
+          WHOIS
+        </button>
       </div>
     </ThemeProvider>
   );

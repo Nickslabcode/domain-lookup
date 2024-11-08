@@ -32,7 +32,7 @@ const ThemeController: React.FC = () => {
               className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
               aria-label={theme}
               value={theme}
-              onClick={() => changeTheme(theme)}
+              onChange={() => changeTheme(theme)}
             />
           </li>
         ))}
