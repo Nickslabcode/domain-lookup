@@ -1,0 +1,7 @@
+@URL=https://api.certspotter.com/v1/issuances
+
+GET {{URL}}
+  ?domain={{VITE_DOMAIN}}
+  &expand=dns_names
+  &expand=issuer
+  apikey:{{VITE_SSL_API_KEY}}

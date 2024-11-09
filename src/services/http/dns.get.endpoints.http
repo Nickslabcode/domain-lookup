@@ -1,25 +1,25 @@
-@url=https://dns.google/resolve
+@URL=https://dns.google/resolve
 
-GET {{url}}
+GET {{URL}}
   ?name={{VITE_DOMAIN}}
   &type=a
 
-GET {{url}}
+GET {{URL}}
   ?name=www.{{VITE_DOMAIN}}
   &type=cname
 
-GET {{url}}
+GET {{URL}}
   ?name={{VITE_DOMAIN}}
   &type=txt
 
-GET {{url}}
+GET {{URL}}
   ?name=_dmarc.{{VITE_DOMAIN}}
   &type=txt
 
-GET {{url}}
+GET {{URL}}
   ?name={{VITE_DOMAIN}}
   &type=mx
 
-GET {{url}}
+GET {{URL}}
   ?name={{VITE_DOMAIN}}
   &type=aaaa

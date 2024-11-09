@@ -1,2 +1,5 @@
-GET https://api.apilayer.com/whois/query?domain={{VITE_DOMAIN}}
-apikey:{{VITE_API_KEY}}
+@URL=https://api.apilayer.com/whois/query
+
+GET {{URL}}
+  ?domain={{VITE_DOMAIN}}
+  apikey:{{VITE_API_KEY}}
