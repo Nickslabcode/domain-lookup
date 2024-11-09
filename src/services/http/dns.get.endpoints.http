@@ -1,0 +1,25 @@
+@url=https://dns.google/resolve
+
+GET {{url}}
+  ?name={{VITE_DOMAIN}}
+  &type=a
+
+GET {{url}}
+  ?name=www.{{VITE_DOMAIN}}
+  &type=cname
+
+GET {{url}}
+  ?name={{VITE_DOMAIN}}
+  &type=txt
+
+GET {{url}}
+  ?name=_dmarc.{{VITE_DOMAIN}}
+  &type=txt
+
+GET {{url}}
+  ?name={{VITE_DOMAIN}}
+  &type=mx
+
+GET {{url}}
+  ?name={{VITE_DOMAIN}}
+  &type=aaaa
