@@ -1,14 +1,14 @@
-@URL=https://api.apilayer.com/whois/query
-@MISSPELLED_DOMAIN=nikola-nenovasasdki.info
-@CORRECT_DOMAIN={{VITE_DOMAIN}}
-@API_KEY={{VITE_API_KEY}}
+# @import ./variables.http
 
-GET {{URL}}
-  ?domain={{MISSPELLED_DOMAIN}}
-  apikey:{{API_KEY}}
-// WhoIS request with a misspelled domain name
-
-GET {{URL}}
-  ?domain={{CORRECT_DOMAIN}}
-  apikey:{{API_KEY}}
+GET {{WHOIS_API_URL}}
+  ?domain={{ACTIVE_DOMAIN}}
+  apikey:{{WHOIS_API_KEY}}
 // WhoIS request with an active domain name
+
+###
+# @import ./variables.http
+
+GET {{WHOIS_API_URL}}
+  ?domain={{MISSPELLED_DOMAIN}}
+  apikey:{{WHOIS_API_KEY}}
+// WhoIS request with a misspelled domain name

@@ -1,9 +1,28 @@
-@URL=https://api.certspotter.com/v1/issuances
-@DOMAIN={{VITE_DOMAIN}}
-@API_KEY={{VITE_SSL_API_KEY}}
+# @import ./variables.http
 
-GET {{URL}}
-  ?domain={{DOMAIN}}
+GET {{SSL_API_URL}}
+  ?domain={{MISSPELLED_DOMAIN}}
   &expand=dns_names
   &expand=issuer
-  apikey:{{API_KEY}}
+  apikey:{{SSL_API_KEY}}
+// SSL request for a misspelled domain name
+
+###
+# @import ./variables.http
+
+GET {{SSL_API_URL}}
+  ?domain={{NOSSL_DOMAIN}}
+  &expand=dns_names
+  &expand=issuer
+  apikey:{{SSL_API_KEY}}
+// SSL request for a domain without an SSL
+
+###
+# @import ./variables.http
+
+GET {{SSL_API_URL}}
+  ?domain={{ACTIVE_DOMAIN}}
+  &expand=dns_names
+  &expand=issuer
+  apikey:{{SSL_API_KEY}}
+// SSL request for an active domain with SSL

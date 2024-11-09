@@ -1,32 +1,46 @@
-@URL=https://dns.google/resolve
-@DOMAIN={{VITE_DOMAIN}}
+# @import ./variables.http
 
-GET {{URL}}
-  ?name={{DOMAIN}}
+GET {{DNS_API_URL}}
+  ?name={{ACTIVE_DOMAIN}}
   &type=a
 // A request
 
-GET {{URL}}
-  ?name=www.{{DOMAIN}}
+###
+# @import ./variables.http
+
+GET {{DNS_API_URL}}
+  ?name=www.{{ACTIVE_DOMAIN}}
   &type=cname
  // CNAME request for www
 
-GET {{URL}}
-  ?name={{DOMAIN}}
+###
+# @import ./variables.http
+
+GET {{DNS_API_URL}}
+  ?name={{ACTIVE_DOMAIN}}
   &type=txt
 // TXT request
 
-GET {{URL}}
-  ?name=_dmarc.{{DOMAIN}}
+###
+# @import ./variables.http
+
+GET {{DNS_API_URL}}
+  ?name=_dmarc.{{ACTIVE_DOMAIN}}
   &type=txt
 // TXT request for _dmarc
 
-GET {{URL}}
-  ?name={{DOMAIN}}
+###
+# @import ./variables.http
+
+GET {{DNS_API_URL}}
+  ?name={{ACTIVE_DOMAIN}}
   &type=mx
 // MX request
 
-GET {{URL}}
-  ?name={{DOMAIN}}
+###
+# @import ./variables.http
+
+GET {{DNS_API_URL}}
+  ?name={{ACTIVE_DOMAIN}}
   &type=aaaa
 // AAAA request

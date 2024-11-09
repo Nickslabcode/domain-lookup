@@ -1,0 +1,10 @@
+@WHOIS_API_KEY={{VITE_WHOIS_API_KEY}}
+@SSL_API_KEY={{VITE_SSL_API_KEY}}
+
+@WHOIS_API_URL=https://api.apilayer.com/whois/query
+@SSL_API_URL=https://api.certspotter.com/v1/issuances
+@DNS_API_URL=https://dns.google/resolve
+
+@MISSPELLED_DOMAIN=nikola-nenovasasdki.info
+@NOSSL_DOMAIN=nossl.nikola-nenovski.info
+@ACTIVE_DOMAIN=nikola-nenovski.info
