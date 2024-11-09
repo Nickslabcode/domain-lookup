@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './App.css';
-import ThemeController from './components/ThemeController';
 import { DnsType } from './enums/DnsType.enum';
 import { ThemeProvider } from './providers/ThemeProvider';
 import { getDnsRecordInfo } from './services/dns.service';
+import Navbar from './components/Navbar';
 
 function App() {
   const [dnsRecordType, setDnsRecordType] = useState<DnsType>(DnsType.A);
@@ -13,9 +13,8 @@ function App() {
     <ThemeProvider>
       <div className="flex flex-col gap-4">
         <div>
-          <ThemeController />
+          <Navbar />
         </div>
-        <h1 className="font-semibold">Domain lookup</h1>
         <div className="flex justify-center gap-4">
           <button className="btn btn-info">info</button>
           <button className="btn btn-primary">primary</button>
@@ -47,7 +46,7 @@ function App() {
             onClick={() => getDnsRecordInfo(domain, dnsRecordType)}
             disabled={domain ? false : true}
           >
-            Search
+            Accio!
           </button>
         </div>
       </div>

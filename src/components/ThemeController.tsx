@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Theme } from '../enums/Theme.enum';
 import { useTheme } from '../providers/ThemeProvider';
+import { FaPaintRoller } from 'react-icons/fa';
 
 const ThemeController: React.FC = () => {
   const { theme, changeTheme } = useTheme();
@@ -8,7 +9,8 @@ const ThemeController: React.FC = () => {
 
   return (
     <div className="dropdown">
-      <div tabIndex={0} role="button" className="btn btn-sm m-1">
+      <div tabIndex={0} role="button" className="btn btn-ghost btn-sm m-1">
+        <FaPaintRoller />
         {theme}
         <svg
           width="12px"
