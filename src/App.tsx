@@ -33,10 +33,9 @@ function App() {
           <select
             className="select select-bordered w-full select-sm max-w-xs"
             onChange={event => setDnsRecordType(event.target.value as DnsType)}
+            defaultValue={DnsType.A}
           >
-            <option disabled selected>
-              DNS Type
-            </option>
+            <option disabled>DNS Type</option>
             {Object.values(DnsType).map((type: string, idx: number) => (
               <option value={type} key={idx}>
                 {type}
@@ -46,6 +45,7 @@ function App() {
           <button
             className="btn btn-sm btn-primary"
             onClick={() => getDnsRecordInfo(domain, dnsRecordType)}
+            disabled={domain ? false : true}
           >
             Search
           </button>

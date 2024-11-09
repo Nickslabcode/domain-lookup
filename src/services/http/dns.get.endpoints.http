@@ -1,25 +1,32 @@
 @URL=https://dns.google/resolve
+@DOMAIN={{VITE_DOMAIN}}
 
 GET {{URL}}
-  ?name={{VITE_DOMAIN}}
+  ?name={{DOMAIN}}
   &type=a
+// A request
 
 GET {{URL}}
-  ?name=www.{{VITE_DOMAIN}}
+  ?name=www.{{DOMAIN}}
   &type=cname
+ // CNAME request for www
 
 GET {{URL}}
-  ?name={{VITE_DOMAIN}}
+  ?name={{DOMAIN}}
   &type=txt
+// TXT request
 
 GET {{URL}}
-  ?name=_dmarc.{{VITE_DOMAIN}}
+  ?name=_dmarc.{{DOMAIN}}
   &type=txt
+// TXT request for _dmarc
 
 GET {{URL}}
-  ?name={{VITE_DOMAIN}}
+  ?name={{DOMAIN}}
   &type=mx
+// MX request
 
 GET {{URL}}
-  ?name={{VITE_DOMAIN}}
+  ?name={{DOMAIN}}
   &type=aaaa
+// AAAA request
