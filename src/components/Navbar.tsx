@@ -10,7 +10,7 @@ const Navbar = () => {
           <h1 className="text-center">DomainLookup</h1>
         </div>
       </div>
-      <div className="flex gap-1 flex-1">
+      <div className="flex gap-2 flex-1">
         <label className="flex items-center input input-sm input-bordered w-full">
           <input
             type="text"

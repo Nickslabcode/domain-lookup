@@ -9,7 +9,11 @@ const ThemeController: React.FC = () => {
 
   return (
     <div className="dropdown dropdown-top">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-sm m-1">
+      <div
+        tabIndex={0}
+        role="button"
+        className="btn btn-ghost hover:bg-transparent btn-sm m-1 hover:text-neutral-content"
+      >
         <FaPaintRoller />
         {theme}
         <svg
@@ -24,7 +28,7 @@ const ThemeController: React.FC = () => {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content bg-base-300 rounded-box z-[1] w-52 p-2 shadow-2xl"
+        className="dropdown-content bg-base-200 rounded-box z-[1] w-52 p-2 shadow-2xl text-neutral-content"
       >
         {themes.map((theme: Theme, idx: number) => (
           <li key={idx}>
