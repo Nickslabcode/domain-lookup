@@ -1,0 +1,23 @@
+import ThemeController from './ThemeController';
+import { FaGithub } from 'react-icons/fa';
+
+const Footer = () => {
+  return (
+    <div className="flex items-center text-sm justify-around">
+      <p>© 2024 Nikola Nenovski. All right reserved.</p>
+      <div className="flex items-center gap-2">
+        <a
+          href="https://github.com/Nickslabcode/domain-info-lookup"
+          className="flex items-center gap-2 link-hover"
+          target="_blank"
+        >
+          <FaGithub size={18} />
+          Source
+        </a>
+        <ThemeController />
+      </div>
+    </div>
+  );
+};
+
+export default Footer;

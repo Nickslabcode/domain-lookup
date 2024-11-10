@@ -8,7 +8,7 @@ const ThemeController: React.FC = () => {
   const [themes, _] = useState<Theme[]>(() => Object.values(Theme));
 
   return (
-    <div className="dropdown">
+    <div className="dropdown dropdown-top">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-sm m-1">
         <FaPaintRoller />
         {theme}

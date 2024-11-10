@@ -4,7 +4,12 @@ import { DnsType } from '../enums/DnsType.enum';
 export const getDnsRecordInfo = async (domain: string, type: DnsType) => {
   try {
     const response = await axios.get(
-      `https://dns.google/resolve?name=${domain}&type=${type}`
+      `https://dns.google/resolve?name=${domain}&type=${type}`,
+      {
+        onDownloadProgress: progressEvent => {
+          console.log(progressEvent);
+        },
+      }
     );
     if (!response.data.Answer)
       throw new Error(

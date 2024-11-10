@@ -1,5 +1,4 @@
 import { RiSearchLine } from 'react-icons/ri';
-import ThemeController from './ThemeController';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 const Navbar = () => {
@@ -25,15 +24,12 @@ const Navbar = () => {
           </kbd>
         </label>
         <button
-          className="btn btn-sm btn-primary btn-disabled"
+          className="btn btn-sm btn-primary"
           // onClick={() => getDnsRecordInfo(domain, dnsRecordType)}
           // disabled={domain ? false : true}
         >
           Accio!
         </button>
-      </div>
-      <div>
-        <ThemeController />
       </div>
     </div>
   );

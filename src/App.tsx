@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import './App.css';
 import { DnsType } from './enums/DnsType.enum';
 import { ThemeProvider } from './providers/ThemeProvider';
-import { getDnsRecordInfo } from './services/dns.service';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   const [dnsRecordType, setDnsRecordType] = useState<DnsType>(DnsType.A);
@@ -11,16 +10,10 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className="flex flex-col gap-4">
-        <div>
-          <Navbar />
-        </div>
-        <div className="flex justify-center gap-4">
-          <button className="btn btn-info">info</button>
-          <button className="btn btn-primary">primary</button>
-          <button className="btn btn-secondary">secondary</button>
-        </div>
-        <div className="flex gap-4 justify-center">
+      <div className="flex flex-col gap-4 h-screen">
+        <Navbar />
+        <div className="flex flex-1 justify-center gap-4">hi</div>
+        {/* <div className="flex gap-4 justify-center">
           <label className="input input-sm input-bordered">
             <input
               type="text"
@@ -48,7 +41,8 @@ function App() {
           >
             Accio!
           </button>
-        </div>
+          </div> */}
+        <Footer />
       </div>
     </ThemeProvider>
   );
