@@ -11,11 +11,15 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex gap-2 flex-1">
-        <label className="flex items-center input input-sm input-bordered w-full">
+        <label
+          className="flex items-center input input-sm input-bordered w-full"
+          style={{ outline: 'none', boxShadow: 'none' }}
+        >
           <input
             type="text"
             className="grow"
             placeholder="Search for a domain..."
+            autoFocus
             // onChange={event => setDomain(event.target.value)}
           />
           <kbd className="kbd kbd-sm flex gap-1">
