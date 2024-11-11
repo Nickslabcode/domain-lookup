@@ -24,12 +24,16 @@ const SearchForm = () => {
         <input
           type="text"
           className="grow"
-          placeholder="Search for a domain..."
+          placeholder="Type a domain..."
           autoFocus
           value={searchQuery}
           onChange={event => setSearchQuery(event.target.value)}
         />
-        <kbd className="kbd kbd-sm flex gap-1">
+        <kbd
+          className={`kbd kbd-sm flex gap-1 ${
+            !searchQuery ? 'opacity-50' : ''
+          }`}
+        >
           <IoReturnDownBackSharp />
           <span className="text-xs">Enter</span>
         </kbd>
