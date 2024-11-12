@@ -16,7 +16,7 @@ const SearchForm = () => {
   };
 
   return (
-    <form className="flex gap-2 w-96" onSubmit={handleSubmit}>
+    <form className="flex gap-2 w-1/2" onSubmit={handleSubmit}>
       <label
         className="flex items-center input input-sm input-bordered w-full"
         style={{ outline: 'none', boxShadow: 'none' }}
