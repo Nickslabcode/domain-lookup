@@ -1,3 +1,8 @@
-GET http://localhost:8787/nikola-nenovski.info
+# @import ./variables.http
+GET {{ WORKER_API_URL }}/{{ ACTIVE_DOMAIN }}
+// Sending a valid request with an active domain
 
-GET http://localhost:8787/
+###
+# @import ./variables.http
+GET {{ WORKER_API_URL }}
+// Sending a request without a domain
