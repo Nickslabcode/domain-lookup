@@ -982,6 +982,11 @@ var src_default = {
   async fetch(request, env3, _ctx) {
     const url = new URL(request.url);
     const domain2 = url.pathname.split("/")[1];
+    const headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET",
+      "Access-Control-Allow-Headers": "Content-Type"
+    };
     if (!domain2) {
       return new Response("Domain not provided", { status: 400 });
     }
@@ -993,7 +998,7 @@ var src_default = {
       });
       if (response.ok) {
         const data = await response.json();
-        return new Response(JSON.stringify(data), { status: 200 });
+        return new Response(JSON.stringify(data), { status: 200, headers: { ...headers, "Content-Type": "application/json" } });
       } else {
         return new Response("There was a problem fetching the data", { status: response.status });
       }
