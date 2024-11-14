@@ -1,23 +1,35 @@
 import axios from 'axios';
 import { DnsType } from '../enums/DnsType.enum';
+import { DnsRecordResponse } from '../types/DnsRecordResponse';
 
-export const getDnsRecordInfo = async (domain: string, type: DnsType) => {
-  try {
-    const response = await axios.get(
-      `https://dns.google/resolve?name=${domain}&type=${type}`,
-      {
-        onDownloadProgress: progressEvent => {
-          console.log(progressEvent);
-        },
-      }
-    );
-    if (!response.data.Answer)
-      throw new Error(
-        `No records found for the given DNS type for ${domain}. Double-check your domain name for typos or try with a different DNS type.`
-      );
+export const getDnsRecordInfo = async (
+  domain: string
+): Promise<DnsRecordResponse[]> => {
+  const response: DnsRecordResponse[] = [];
 
-    return response.data.Answer;
-  } catch (error) {
-    console.error(error);
+  for (const record of Object.values(DnsType)) {
+    let recordResponse = null;
+
+    try {
+      recordResponse = (
+        await axios.get(
+          `https://dns.google/resolve?name=${domain}&type=${record}`,
+          {
+            onDownloadProgress: progressEvent => {
+              console.log(progressEvent);
+            },
+          }
+        )
+      ).data.Answer;
+
+      response.push({
+        type: record as DnsType,
+        data: recordResponse ?? `No ${record.toUpperCase()} records`,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  return response;
 };
