@@ -8,7 +8,8 @@ const fetchDnsByType = async (domain: string, type: DnsType) => {
 			throw new Error(`Failed to fetch ${type} records`);
 		}
 
-		return response.json();
+		const data: Record<string, unknown> = await response.json();
+		return data.Answer ?? `No ${type} records`;
 	} catch (error) {
 		if (error instanceof Error) {
 			console.error(`Error fetching ${type} records for ${domain}:`, error.message);

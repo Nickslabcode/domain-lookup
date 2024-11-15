@@ -994,7 +994,8 @@ var fetchDnsByType = /* @__PURE__ */ __name(async (domain2, type) => {
     if (!response.ok) {
       throw new Error(`Failed to fetch ${type} records`);
     }
-    return response.json();
+    const data = await response.json();
+    return data.Answer ?? `No ${type} records`;
   } catch (error3) {
     if (error3 instanceof Error) {
       console.error(`Error fetching ${type} records for ${domain2}:`, error3.message);
