@@ -13,12 +13,7 @@ export const getDnsRecordInfo = async (
     try {
       recordResponse = (
         await axios.get(
-          `https://dns.google/resolve?name=${domain}&type=${record}`,
-          {
-            onDownloadProgress: progressEvent => {
-              console.log(progressEvent);
-            },
-          }
+          `https://dns.google/resolve?name=${domain}&type=${record}`
         )
       ).data.Answer;
 
