@@ -1,10 +1,8 @@
-import { IRequest } from 'itty-router';
-
 interface Env {
 	SSL_API_KEY: string;
 }
 
-export const fetchSslData = async (request: IRequest, env: Env): Promise<Response> => {
+export const fetchSslData = async (request: Request, env: Partial<Env>): Promise<Response> => {
 	const { searchParams } = new URL(request.url);
 	const domain = searchParams.get('domain');
 
@@ -21,12 +19,14 @@ export const fetchSslData = async (request: IRequest, env: Env): Promise<Respons
 	try {
 		const response = await fetch(`https://api.certspotter.com/v1/issuances?domain=${domain}&expand=dns_names&expand=issuer`, {
 			headers: {
-				apikey: env.SSL_API_KEY,
+				apikey: env.SSL_API_KEY!,
 			},
 		});
 
 		if (response.ok) {
 			const data = await response.json();
+			console.log(data);
+
 			return new Response(JSON.stringify(data), { status: 200, headers: { ...headers, 'Content-Type': 'application/json' } });
 		} else {
 			return new Response('There was a problem fetching the data. Please try again later.', { status: response.status });

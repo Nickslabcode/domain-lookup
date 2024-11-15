@@ -18,7 +18,7 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 
-// .wrangler/tmp/bundle-1yTlcK/checked-fetch.js
+// .wrangler/tmp/bundle-yIjUmW/checked-fetch.js
 var urls = /* @__PURE__ */ new Set();
 function checkURL(request, init) {
   const url = request instanceof URL ? request : new URL(
@@ -977,34 +977,137 @@ var cloudflare_default2 = _process;
 // node_modules/wrangler/_virtual_unenv_global_polyfill-process.js
 globalThis.process = cloudflare_default2;
 
+// workers/domainlookup/src/enums/DnsType.enum.ts
+var DnsType = /* @__PURE__ */ ((DnsType2) => {
+  DnsType2["A"] = "A";
+  DnsType2["AAAA"] = "AAAA";
+  DnsType2["CNAME"] = "CNAME";
+  DnsType2["TXT"] = "TXT";
+  DnsType2["MX"] = "MX";
+  return DnsType2;
+})(DnsType || {});
+
+// workers/domainlookup/src/handlers/dnsHandler.ts
+var fetchDnsByType = /* @__PURE__ */ __name(async (domain2, type) => {
+  try {
+    const response = await fetch(`https://dns.google/resolve?name=${domain2}&type=${type}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${type} records`);
+    }
+    return response.json();
+  } catch (error3) {
+    if (error3 instanceof Error) {
+      console.error(`Error fetching ${type} records for ${domain2}:`, error3.message);
+      return { type, error: error3.message };
+    } else {
+      console.error(`Error fetching ${type} records for ${domain2}:`, error3);
+      return { type, error: "Unknown error" };
+    }
+  }
+}, "fetchDnsByType");
+var fetchDnsData = /* @__PURE__ */ __name(async (request) => {
+  try {
+    const { searchParams } = new URL(request.url);
+    const domain2 = searchParams.get("domain");
+    if (!domain2) {
+      throw new Response("Domain query parameter is required", { status: 400 });
+    }
+    const recordTypes = Object.values(DnsType);
+    const results = await Promise.all(recordTypes.map((type) => fetchDnsByType(domain2, type)));
+    const dnsRecords = recordTypes.reduce((acc, type, index) => {
+      acc[type] = results[index];
+      return acc;
+    }, {});
+    return new Response(JSON.stringify(dnsRecords), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
+  } catch (error3) {
+    console.error("Error fetching DNS records", error3);
+    return new Response("Internal server error. Please try again later.", { status: 500 });
+  }
+}, "fetchDnsData");
+
+// workers/domainlookup/src/handlers/sslHandler.ts
+var fetchSslData = /* @__PURE__ */ __name(async (request, env3) => {
+  const { searchParams } = new URL(request.url);
+  const domain2 = searchParams.get("domain");
+  if (!domain2) {
+    return new Response("Domain query parameter is required", { status: 400 });
+  }
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET",
+    "Access-Control-Allow-Headers": "Content-Type"
+  };
+  try {
+    const response = await fetch(`https://api.certspotter.com/v1/issuances?domain=${domain2}&expand=dns_names&expand=issuer`, {
+      headers: {
+        apikey: env3.SSL_API_KEY
+      }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      return new Response(JSON.stringify(data), { status: 200, headers: { ...headers, "Content-Type": "application/json" } });
+    } else {
+      return new Response("There was a problem fetching the data. Please try again later.", { status: response.status });
+    }
+  } catch (error3) {
+    console.error("There was an error fetching the data: ", error3);
+    return new Response("Internal server error. Please try again later.", { status: 500 });
+  }
+}, "fetchSslData");
+
+// workers/domainlookup/src/handlers/whoisHandler.ts
+var fetchWhoisData = /* @__PURE__ */ __name(async (request, env3) => {
+  const { searchParams } = new URL(request.url);
+  const domain2 = searchParams.get("domain");
+  console.log(env3.WHOIS_API_KEY);
+  if (!domain2) {
+    return new Response("Domain query parameter is required.", { status: 400 });
+  }
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET",
+    "Access-Control-Allow-Headers": "Content-Type"
+  };
+  try {
+    const response = await fetch(`https://api.apilayer.com/whois/query?domain=${domain2}`, {
+      headers: {
+        apikey: env3.WHOIS_API_KEY
+      }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return new Response(JSON.stringify(data), { status: 200, headers: { ...headers, "Content-Type": "application/json" } });
+    } else {
+      return new Response("There was a problem fetching the data. Please try again later.", { status: response.status });
+    }
+  } catch (error3) {
+    console.error("There was a problem fetching the data: ", error3);
+    return new Response("Internal server error. Please try again later.", { status: 500 });
+  }
+}, "fetchWhoisData");
+
 // workers/domainlookup/src/index.ts
 var src_default = {
   async fetch(request, env3, _ctx) {
     const url = new URL(request.url);
-    const domain2 = url.pathname.split("/")[1];
-    const headers = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET",
-      "Access-Control-Allow-Headers": "Content-Type"
-    };
-    if (!domain2) {
-      return new Response("Domain not provided", { status: 400 });
+    const path = url.pathname;
+    const method = request.method;
+    if (method !== "GET") {
+      return new Response("Method not allowed.", { status: 405 });
     }
-    try {
-      const response = await fetch(`https://api.certspotter.com/v1/issuances?domain=${domain2}&expand=dns_names&expand=issuer`, {
-        headers: {
-          apikey: env3.SSL_API_KEY
-        }
-      });
-      if (response.ok) {
-        const data = await response.json();
-        return new Response(JSON.stringify(data), { status: 200, headers: { ...headers, "Content-Type": "application/json" } });
-      } else {
-        return new Response("There was a problem fetching the data", { status: response.status });
-      }
-    } catch (error3) {
-      console.error(error3);
-      return new Response("An error occurred. Please try again later.", { status: 500 });
+    switch (path) {
+      case "/whois":
+        return fetchWhoisData(request, env3);
+      case "/ssl":
+        return fetchSslData(request, env3);
+      case "/dns":
+        return fetchDnsData(request);
+      default:
+        return new Response("Not Found", { status: 404 });
     }
   }
 };
@@ -1050,7 +1153,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env3, _ctx, middlewareCtx
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-1yTlcK/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-yIjUmW/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -1082,7 +1185,7 @@ function __facade_invoke__(request, env3, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-1yTlcK/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-yIjUmW/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

@@ -1,39 +1,26 @@
-interface Env {
-	SSL_API_KEY: string;
-}
+import { fetchDnsData } from './handlers/dnsHandler';
+import { fetchSslData } from './handlers/sslHandler';
+import { fetchWhoisData } from './handlers/whoisHandler';
 
 export default {
 	async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
 		const url = new URL(request.url);
-		const domain = url.pathname.split('/')[1];
+		const path = url.pathname;
+		const method = request.method;
 
-		const headers = {
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Methods': 'GET',
-			'Access-Control-Allow-Headers': 'Content-Type',
-		};
-
-		if (!domain) {
-			return new Response('Domain not provided', { status: 400 });
+		if (method !== 'GET') {
+			return new Response('Method not allowed.', { status: 405 });
 		}
 
-		try {
-			const response = await fetch(`https://api.certspotter.com/v1/issuances?domain=${domain}&expand=dns_names&expand=issuer`, {
-				headers: {
-					apikey: env.SSL_API_KEY,
-				},
-			});
-
-			if (response.ok) {
-				const data = await response.json();
-
-				return new Response(JSON.stringify(data), { status: 200, headers: { ...headers, 'Content-Type': 'application/json' } });
-			} else {
-				return new Response('There was a problem fetching the data', { status: response.status });
-			}
-		} catch (error) {
-			console.error(error);
-			return new Response('An error occurred. Please try again later.', { status: 500 });
+		switch (path) {
+			case '/whois':
+				return fetchWhoisData(request, env);
+			case '/ssl':
+				return fetchSslData(request, env);
+			case '/dns':
+				return fetchDnsData(request);
+			default:
+				return new Response('Not Found', { status: 404 });
 		}
 	},
-} satisfies ExportedHandler<Env>;
+};

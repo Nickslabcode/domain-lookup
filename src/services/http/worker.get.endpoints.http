@@ -6,3 +6,6 @@ GET {{ WORKER_API_URL }}/{{ ACTIVE_DOMAIN }}
 # @import ./variables.http
 GET {{ WORKER_API_URL }}
 // Sending a request without a domain
+
+###
+GET http://localhost:8787/whois?domain=nikola-nenovski.info

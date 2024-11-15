@@ -1,4 +1,3 @@
-import { IRequest } from 'itty-router';
 import { DnsType } from '../enums/DnsType.enum';
 
 const fetchDnsByType = async (domain: string, type: DnsType) => {
@@ -21,9 +20,8 @@ const fetchDnsByType = async (domain: string, type: DnsType) => {
 	}
 };
 
-export const fetchDnsData = async (request: IRequest): Promise<Response> => {
+export const fetchDnsData = async (request: Request): Promise<Response> => {
 	try {
-		// Extract the domain from the query parameters
 		const { searchParams } = new URL(request.url);
 		const domain = searchParams.get('domain');
 
@@ -31,17 +29,15 @@ export const fetchDnsData = async (request: IRequest): Promise<Response> => {
 			throw new Response('Domain query parameter is required', { status: 400 });
 		}
 
-		// Fetch results in parallel
 		const recordTypes = Object.values(DnsType);
+
 		const results = await Promise.all(recordTypes.map((type: DnsType) => fetchDnsByType(domain, type)));
 
-		// Aggregate into a single response object
 		const dnsRecords = recordTypes.reduce((acc, type, index) => {
 			acc[type] = results[index];
 			return acc;
 		}, {} as Record<DnsType, unknown>);
 
-		// return
 		return new Response(JSON.stringify(dnsRecords), {
 			status: 200,
 			headers: { 'Content-Type': 'application/json' },
