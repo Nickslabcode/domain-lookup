@@ -3,5 +3,5 @@ import { DnsRecordAnswer } from './DnsRecordAnswer';
 
 export type DnsRecordResponse = {
   type: DnsType;
-  data: DnsRecordAnswer[];
+  data: Array<DnsRecordAnswer | string>;
 };

@@ -30,6 +30,12 @@ export const fetchDnsData = async (request: Request): Promise<Response> => {
 			throw new Response('Domain query parameter is required', { status: 400 });
 		}
 
+		const headers = {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET',
+			'Access-Control-Allow-Headers': 'Content-Type',
+		};
+
 		const recordTypes = Object.values(DnsType);
 
 		const results = await Promise.all(recordTypes.map((type: DnsType) => fetchDnsByType(domain, type)));
@@ -41,7 +47,7 @@ export const fetchDnsData = async (request: Request): Promise<Response> => {
 
 		return new Response(JSON.stringify(dnsRecords), {
 			status: 200,
-			headers: { 'Content-Type': 'application/json' },
+			headers: { ...headers, 'Content-Type': 'application/json' },
 		});
 	} catch (error) {
 		console.error('Error fetching DNS records', error);

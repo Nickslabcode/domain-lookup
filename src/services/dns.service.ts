@@ -1,32 +1,23 @@
 import axios from 'axios';
 import { DnsType } from '../enums/DnsType.enum';
-import { DnsRecordResponse } from '../types/DnsRecordResponse';
+import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
 
 export const getDnsRecordInfo = async (
   domain: string
-): Promise<DnsRecordResponse[]> => {
-  const response: DnsRecordResponse[] = [];
-
-  for (const record of Object.values(DnsType)) {
-    let recordResponse = null;
-
-    try {
-      recordResponse = (
-        await axios.get(
-          `https://dns.google/resolve?name=${domain}&type=${record}`
-        )
-      ).data.Answer;
-
-      if (recordResponse) {
-        response.push({
-          type: record as DnsType,
-          data: recordResponse,
-        });
+): Promise<Record<DnsType, DnsRecordAnswer[] | string>> => {
+  try {
+    const response = await axios.get(
+      `https://domainlookup.nicknenovski.workers.dev/dns?domain=${domain}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+    );
 
-  return response;
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to fetch DNS records');
+  }
 };

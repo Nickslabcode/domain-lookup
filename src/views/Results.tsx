@@ -8,14 +8,16 @@ import { getDomainInfo } from '../services/whois.service';
 import { getDnsRecordInfo } from '../services/dns.service';
 import ProgressBar from '../components/ProgressBar';
 import Table from '../components/Table';
-import { DnsRecordResponse } from '../types/DnsRecordResponse';
 import React from 'react';
+import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
+import { DnsType } from '../enums/DnsType.enum';
 
 const Results = () => {
   const [searchParams] = useSearchParams();
   const [sslData, setSslData] = useState<string>('');
   const [whoIsData, setWhoIsData] = useState<string>('');
-  const [dnsData, setDnsData] = useState<DnsRecordResponse[]>([]);
+  const [dnsData, setDnsData] =
+    useState<Record<DnsType, string | DnsRecordAnswer[]>>();
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
@@ -49,6 +51,7 @@ const Results = () => {
     const fetchDnsData = async () => {
       try {
         const data = await getDnsRecordInfo(domain);
+        console.log(data);
         setDnsData(data);
       } catch (error) {
         console.error(error);
@@ -75,13 +78,14 @@ const Results = () => {
                 DNS Info
               </h1>
               <div className="flex flex-wrap justify-center gap-4">
-                {dnsData.map((record: DnsRecordResponse, idx: number) => {
-                  return (
-                    <React.Fragment key={idx}>
-                      <Table content={record} />
-                    </React.Fragment>
-                  );
-                })}
+                {dnsData &&
+                  Object.entries(dnsData).map(([type, answer]) => {
+                    return (
+                      <React.Fragment key={type}>
+                        <Table content={answer} type={type as DnsType} />
+                      </React.Fragment>
+                    );
+                  })}
               </div>
             </div>
             <div>

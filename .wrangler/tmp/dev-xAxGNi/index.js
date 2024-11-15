@@ -1013,6 +1013,11 @@ var fetchDnsData = /* @__PURE__ */ __name(async (request) => {
     if (!domain2) {
       throw new Response("Domain query parameter is required", { status: 400 });
     }
+    const headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET",
+      "Access-Control-Allow-Headers": "Content-Type"
+    };
     const recordTypes = Object.values(DnsType);
     const results = await Promise.all(recordTypes.map((type) => fetchDnsByType(domain2, type)));
     const dnsRecords = recordTypes.reduce((acc, type, index) => {
@@ -1021,7 +1026,7 @@ var fetchDnsData = /* @__PURE__ */ __name(async (request) => {
     }, {});
     return new Response(JSON.stringify(dnsRecords), {
       status: 200,
-      headers: { "Content-Type": "application/json" }
+      headers: { ...headers, "Content-Type": "application/json" }
     });
   } catch (error3) {
     console.error("Error fetching DNS records", error3);

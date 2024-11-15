@@ -1,16 +1,17 @@
 import React from 'react';
 import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
-import { DnsRecordResponse } from '../types/DnsRecordResponse';
+import { DnsType } from '../enums/DnsType.enum';
 
-const Table: React.FC<{ content: DnsRecordResponse }> = ({ content }) => {
+const Table: React.FC<{
+  content: DnsRecordAnswer[] | string;
+  type: DnsType;
+}> = ({ content, type }) => {
   return (
-    <div className="flex flex-col max-w-lg break-words shadow-md p-4 rounded-lg cursor-default">
-      <h1 className="font-semibold">{content.type.toUpperCase()}</h1>
-      {typeof content.data === 'string' ? (
-        <h1>{content.data}</h1>
-      ) : (
+    typeof content !== 'string' && (
+      <div className="flex flex-col max-w-lg break-words shadow-md p-4 rounded-lg cursor-default">
+        <h1 className="font-semibold">{type.toUpperCase()}</h1>
+
         <table className="table cursor-default">
-          {/* head */}
           <thead>
             <tr>
               <th>Answer</th>
@@ -18,7 +19,7 @@ const Table: React.FC<{ content: DnsRecordResponse }> = ({ content }) => {
             </tr>
           </thead>
           <tbody>
-            {content.data.map((answer: DnsRecordAnswer, idx: number) => (
+            {content.map((answer: DnsRecordAnswer, idx: number) => (
               <tr key={idx} className="hover">
                 <td>{answer.data}</td>
                 <td>{answer.TTL}</td>
@@ -26,8 +27,8 @@ const Table: React.FC<{ content: DnsRecordResponse }> = ({ content }) => {
             ))}
           </tbody>
         </table>
-      )}
-    </div>
+      </div>
+    )
   );
 };
 
