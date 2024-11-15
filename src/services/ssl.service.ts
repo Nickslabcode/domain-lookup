@@ -11,9 +11,7 @@ export const getDomainSslInfo = async (domain: string) => {
       }
     );
 
-    console.dir(response);
-
-    return response;
+    return response.data;
   } catch (error) {
     console.error(error);
   }

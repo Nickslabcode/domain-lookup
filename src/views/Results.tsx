@@ -26,7 +26,8 @@ const Results = () => {
     const fetchSslData = async () => {
       try {
         const data = await getDomainSslInfo(domain);
-        setSslData(JSON.stringify(data));
+        console.log(data);
+        setSslData(JSON.stringify(data[1]));
       } catch (error) {
         console.error(error);
       } finally {
@@ -56,7 +57,7 @@ const Results = () => {
       }
     };
 
-    // fetchSslData();
+    fetchSslData();
     // fetchWhoIsData();
     fetchDnsData();
   }, [searchParams]);
@@ -68,13 +69,30 @@ const Results = () => {
         {progress < 3 ? (
           <ProgressBar progress={progress} />
         ) : (
-          dnsData.map((record: DnsRecordResponse, idx: number) => {
-            return (
-              <React.Fragment key={idx}>
-                <Table content={record} />
-              </React.Fragment>
-            );
-          })
+          <>
+            <div>
+              <h1 className="font-semibold text-center xl:text-start mb-4">
+                DNS Info
+              </h1>
+              <div className="flex flex-wrap justify-center gap-4">
+                {dnsData.map((record: DnsRecordResponse, idx: number) => {
+                  return (
+                    <React.Fragment key={idx}>
+                      <Table content={record} />
+                    </React.Fragment>
+                  );
+                })}
+              </div>
+            </div>
+            <div>
+              <h1 className="font-semibold text-center xl:text-start mb-4">
+                SSL Info
+              </h1>
+              <div className="flex flex-wrap justify-center gap-4">
+                {sslData}
+              </div>
+            </div>
+          </>
         )}
       </ViewContainer>
       <Footer />

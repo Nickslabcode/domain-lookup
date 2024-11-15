@@ -22,10 +22,12 @@ export const getDnsRecordInfo = async (
         )
       ).data.Answer;
 
-      response.push({
-        type: record as DnsType,
-        data: recordResponse ?? `No ${record.toUpperCase()} records`,
-      });
+      if (recordResponse) {
+        response.push({
+          type: record as DnsType,
+          data: recordResponse,
+        });
+      }
     } catch (error) {
       console.error(error);
     }
