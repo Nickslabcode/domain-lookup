@@ -5,7 +5,6 @@ interface Env {
 export const fetchWhoisData = async (request: Request, env: Partial<Env>): Promise<Response> => {
 	const { searchParams } = new URL(request.url);
 	const domain = searchParams.get('domain');
-	console.log(env.WHOIS_API_KEY);
 	if (!domain) {
 		return new Response('Domain query parameter is required.', { status: 400 });
 	}

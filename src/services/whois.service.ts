@@ -9,7 +9,6 @@ export const getDomainInfo = async (domain: string) => {
         headers,
       }
     );
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error);

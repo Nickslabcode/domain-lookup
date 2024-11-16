@@ -25,7 +25,6 @@ export const fetchSslData = async (request: Request, env: Partial<Env>): Promise
 
 		if (response.ok) {
 			const data = await response.json();
-			console.log(data);
 
 			return new Response(JSON.stringify(data), { status: 200, headers: { ...headers, 'Content-Type': 'application/json' } });
 		} else {

@@ -11,10 +11,11 @@ import Table from '../components/Table';
 import React from 'react';
 import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
 import { DnsType } from '../enums/DnsType.enum';
+import SslTable from '../components/SslTable';
 
 const Results = () => {
   const [searchParams] = useSearchParams();
-  const [sslData, setSslData] = useState<string>('');
+  const [sslData, setSslData] = useState<Record<string, string>>({});
   const [whoIsData, setWhoIsData] = useState<string>('');
   const [dnsData, setDnsData] =
     useState<Record<DnsType, string | DnsRecordAnswer[]>>();
@@ -29,7 +30,7 @@ const Results = () => {
       try {
         const data = await getDomainSslInfo(domain);
         console.log(data);
-        setSslData(JSON.stringify(data[1]));
+        setSslData(data[data.length - 1]);
       } catch (error) {
         console.error(error);
       } finally {
@@ -51,7 +52,6 @@ const Results = () => {
     const fetchDnsData = async () => {
       try {
         const data = await getDnsRecordInfo(domain);
-        console.log(data);
         setDnsData(data);
       } catch (error) {
         console.error(error);
@@ -93,7 +93,7 @@ const Results = () => {
                 SSL Info
               </h1>
               <div className="flex flex-wrap justify-center gap-4">
-                {sslData}
+                <SslTable content={sslData} />
               </div>
             </div>
           </>
