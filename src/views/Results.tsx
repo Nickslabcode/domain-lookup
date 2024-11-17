@@ -12,6 +12,7 @@ import React from 'react';
 import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
 import { DnsType } from '../enums/DnsType.enum';
 import SslTable from '../components/SslTable';
+import WhoisTable from '../components/WhoisTable';
 
 const Results = () => {
   const [searchParams] = useSearchParams();
@@ -41,7 +42,7 @@ const Results = () => {
     const fetchWhoIsData = async () => {
       try {
         const data = await getDomainInfo(domain);
-        setWhoIsData(JSON.stringify(data));
+        setWhoIsData(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -52,16 +53,17 @@ const Results = () => {
     const fetchDnsData = async () => {
       try {
         const data = await getDnsRecordInfo(domain);
+        console.log(data);
         setDnsData(data);
       } catch (error) {
         console.error(error);
       } finally {
-        setProgress(prevValue => prevValue + 3);
+        setProgress(prevValue => prevValue + 1);
       }
     };
 
     fetchSslData();
-    // fetchWhoIsData();
+    fetchWhoIsData();
     fetchDnsData();
   }, [searchParams]);
 
@@ -77,7 +79,7 @@ const Results = () => {
               <h1 className="font-semibold text-center xl:text-start mb-4">
                 DNS Info
               </h1>
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex break-words justify-center gap-4 w-full">
                 {dnsData &&
                   Object.entries(dnsData).map(([type, answer]) => {
                     return (
@@ -88,12 +90,22 @@ const Results = () => {
                   })}
               </div>
             </div>
-            <div>
-              <h1 className="font-semibold text-center xl:text-start mb-4">
-                SSL Info
-              </h1>
-              <div className="flex flex-wrap justify-center gap-4">
-                <SslTable content={sslData} />
+            <div className="w-full flex justify-center gap-4">
+              <div>
+                <h1 className="font-semibold text-center xl:text-start mb-4">
+                  SSL Info
+                </h1>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <SslTable content={sslData} />
+                </div>
+              </div>
+              <div>
+                <h1 className="font-semibold text-center xl:text-start mb-4">
+                  WHOIS Info
+                </h1>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <WhoisTable content={whoIsData} />
+                </div>
               </div>
             </div>
           </>

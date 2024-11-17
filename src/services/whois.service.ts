@@ -10,7 +10,7 @@ export const getDomainInfo = async (domain: string) => {
         },
       }
     );
-    return response;
+    return response.data;
   } catch (error) {
     console.error(error);
   }

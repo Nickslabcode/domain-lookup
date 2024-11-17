@@ -26,6 +26,7 @@ export const fetchWhoisData = async (request: Request, env: Partial<Env>): Promi
 			const data = await response.json();
 			return new Response(JSON.stringify(data), { status: 200, headers: { ...headers, 'Content-Type': 'application/json' } });
 		} else {
+			// Update this exit- domain names that are not registered fall here.
 			return new Response('There was a problem fetching the data. Please try again later.', { status: response.status });
 		}
 	} catch (error) {

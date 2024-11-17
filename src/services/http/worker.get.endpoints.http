@@ -4,8 +4,8 @@ GET {{ WORKER_API_URL }}/whois?domain={{ ACTIVE_DOMAIN }}
 
 ###
 # @import ./variables.http
-GET {{ WORKER_API_URL }}
-// Sending a request without a domain
+GET {{ WORKER_API_URL }}/whois?domain=adadassssa.com
+// Sending a request with an inactive domain
 
 ###
 # @import ./variables.http
