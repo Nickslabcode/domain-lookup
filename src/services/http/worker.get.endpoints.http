@@ -1,5 +1,5 @@
 # @import ./variables.http
-GET {{ WORKER_API_URL }}/{{ ACTIVE_DOMAIN }}
+GET {{ WORKER_API_URL }}/whois?domain={{ ACTIVE_DOMAIN }}
 // Sending a valid request with an active domain
 
 ###
@@ -8,4 +8,17 @@ GET {{ WORKER_API_URL }}
 // Sending a request without a domain
 
 ###
+# @import ./variables.http
+GET {{ WORKER_API_URL }}/whois?domain=nickslabcode.com
+// Sending a request with an expired domain name
+
+###
+# @import ./variables.http
+GET {{ WORKER_API_URL }}/whois?domain=karakolev.com
+// Sending a request with an domain name from a reseller
+
+###
 GET http://localhost:8787/dns?domain=nikola-nenovski.info
+
+###
+GET http://localhost:8787/whois?domain=nikola-nenovski.info

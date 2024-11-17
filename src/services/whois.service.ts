@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 export const getDomainInfo = async (domain: string) => {
-  const headers = { apikey: import.meta.env.API_KEY };
   try {
     const response = await axios.get(
-      `https://api.apilayer.com/whois/query?domain=${domain}`,
+      `https://domainlookup.nicknenovski.workers.dev/whois?domain=${domain}`,
       {
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
     );
     return response;
