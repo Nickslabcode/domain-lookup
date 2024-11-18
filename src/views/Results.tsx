@@ -17,7 +17,8 @@ import WhoisTable from '../components/WhoisTable';
 const Results = () => {
   const [searchParams] = useSearchParams();
   const [sslData, setSslData] = useState<Record<string, string>>({});
-  const [whoIsData, setWhoIsData] = useState<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [whoIsData, setWhoIsData] = useState<Record<string, any> | string>();
   const [dnsData, setDnsData] =
     useState<Record<DnsType, string | DnsRecordAnswer[]>>();
   const [progress, setProgress] = useState<number>(0);
@@ -58,7 +59,7 @@ const Results = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        setProgress(prevValue => prevValue + 1);
+        setProgress(prevValue => prevValue + 3);
       }
     };
 
@@ -79,7 +80,7 @@ const Results = () => {
               <h1 className="font-semibold text-center xl:text-start mb-4">
                 DNS Info
               </h1>
-              <div className="flex break-words justify-center gap-4 w-full">
+              <div className="flex break-words gap-4 w-full">
                 {dnsData &&
                   Object.entries(dnsData).map(([type, answer]) => {
                     return (
@@ -90,22 +91,18 @@ const Results = () => {
                   })}
               </div>
             </div>
-            <div className="w-full flex justify-center gap-4">
-              <div>
+            <div className="w-full flex gap-4">
+              <div className="w-1/3">
                 <h1 className="font-semibold text-center xl:text-start mb-4">
                   SSL Info
                 </h1>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <SslTable content={sslData} />
-                </div>
+                <SslTable content={sslData} />
               </div>
-              <div>
+              <div className="w-2/3">
                 <h1 className="font-semibold text-center xl:text-start mb-4">
                   WHOIS Info
                 </h1>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <WhoisTable content={whoIsData} />
-                </div>
+                {whoIsData && <WhoisTable content={whoIsData} />}
               </div>
             </div>
           </>

@@ -10,8 +10,7 @@ const Table: React.FC<{
     typeof content !== 'string' && (
       <div className="flex flex-col break-words shadow-md p-4 rounded-lg cursor-default">
         <h1 className="font-semibold">{type.toUpperCase()}</h1>
-
-        <table className="table table-xs cursor-default">
+        <table className="table cursor-default">
           <thead>
             <tr>
               <th>Answer</th>

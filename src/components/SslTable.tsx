@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SslTable: React.FC<{ content: Record<string, any> }> = ({ content }) => {
   return (
-    <div className="flex flex-col break-words shadow-md p-4 rounded-lg cursor-default">
+    <div className="flex h-full flex-col break-words shadow-md p-4 rounded-lg cursor-default">
       {!content ? (
         <h1>No SSL certificate found.</h1>
       ) : (

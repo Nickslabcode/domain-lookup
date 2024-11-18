@@ -5,7 +5,7 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
   content,
 }) => {
   return (
-    <div className="flex flex-col break-words shadow-md p-4 rounded-lg cursor-default">
+    <div className="flex h-full flex-col break-words shadow-md p-4 rounded-lg cursor-default">
       {typeof content === 'string' ? (
         <h1>
           Domain name is not registered or there was a problem fetching the
@@ -16,13 +16,13 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
           <tbody>
             <tr className="hover">
               <th>Registrar</th>
-              <td>{content.result?.registrar}</td>
+              <td>{content.result!.registrar}</td>
             </tr>
             <tr className="hover h-auto">
               <th>Name Servers</th>
               <td>
                 <ul>
-                  {content.result?.name_servers.map(
+                  {content.result!.name_servers.map(
                     (ns: string, idx: number) => (
                       <li key={idx}>{ns}</li>
                     )
@@ -33,29 +33,29 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
             <tr className="hover">
               <th>Registered</th>
               <td>
-                {new Date(content.result?.creation_date).toLocaleDateString()}
+                {new Date(content.result!.creation_date).toLocaleDateString()}
               </td>
             </tr>
             <tr className="hover">
               <th>Expires</th>
               <td>
-                {new Date(content.result?.expiration_date).toLocaleDateString()}
+                {new Date(content.result!.expiration_date).toLocaleDateString()}
               </td>
             </tr>
             <tr className="hover">
               <th>Last updated</th>
               <td>
-                {new Date(content.result?.updated_date).toLocaleDateString()}
+                {new Date(content.result!.updated_date).toLocaleDateString()}
               </td>
             </tr>
             <tr className="hover">
               <th>Status</th>
               <td>
-                {typeof content.result?.status === 'string' ? (
-                  content.result?.status
+                {typeof content.result!.status === 'string' ? (
+                  content.result!.status
                 ) : (
                   <ul>
-                    {content.result?.status.map((row: string, idx: number) => (
+                    {content.result!.status.map((row: string, idx: number) => (
                       <li key={idx}>{row}</li>
                     ))}
                   </ul>
@@ -64,7 +64,7 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
             </tr>
             <tr className="hover">
               <th>DNSSEC</th>
-              <td>{content.result?.dnssec}</td>
+              <td>{content.result!.dnssec}</td>
             </tr>
           </tbody>
         </table>
