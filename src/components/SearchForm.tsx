@@ -29,14 +29,7 @@ const SearchForm = () => {
           value={searchQuery}
           onChange={event => setSearchQuery(event.target.value)}
         />
-        <kbd
-          className={`kbd kbd-sm flex gap-1 ${
-            !searchQuery ? 'opacity-50' : ''
-          }`}
-        >
-          <IoReturnDownBackSharp />
-          <span className="text-xs">Enter</span>
-        </kbd>
+        <kbd className="kbd kbd-sm">t</kbd>
       </label>
       <button
         className="btn btn-sm btn-primary"

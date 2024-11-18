@@ -13,6 +13,7 @@ import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
 import { DnsType } from '../enums/DnsType.enum';
 import SslTable from '../components/SslTable';
 import WhoisTable from '../components/WhoisTable';
+import ShortKeys from '../components/ShortKeys';
 
 const Results = () => {
   const [searchParams] = useSearchParams();
@@ -31,7 +32,7 @@ const Results = () => {
     const fetchSslData = async () => {
       try {
         const data = await getDomainSslInfo(domain);
-        console.log(data);
+        console.log('SSL info fetched!');
         setSslData(data[data.length - 1]);
       } catch (error) {
         console.error(error);
@@ -44,6 +45,7 @@ const Results = () => {
       try {
         const data = await getDomainInfo(domain);
         setWhoIsData(data);
+        console.log('WHOIS info fetched!');
       } catch (error) {
         console.error(error);
       } finally {
@@ -54,12 +56,12 @@ const Results = () => {
     const fetchDnsData = async () => {
       try {
         const data = await getDnsRecordInfo(domain);
-        console.log(data);
+        console.log('DNS info fetched!');
         setDnsData(data);
       } catch (error) {
         console.error(error);
       } finally {
-        setProgress(prevValue => prevValue + 3);
+        setProgress(prevValue => prevValue + 1);
       }
     };
 
@@ -96,7 +98,7 @@ const Results = () => {
                 <h1 className="font-semibold text-center xl:text-start mb-4">
                   SSL Info
                 </h1>
-                <SslTable content={sslData} />
+                {sslData && <SslTable content={sslData} />}
               </div>
               <div className="w-2/3">
                 <h1 className="font-semibold text-center xl:text-start mb-4">
@@ -108,6 +110,7 @@ const Results = () => {
           </>
         )}
       </ViewContainer>
+      <ShortKeys />
       <Footer />
     </>
   );
