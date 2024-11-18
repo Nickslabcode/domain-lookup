@@ -23,55 +23,48 @@ const Results = () => {
   const [dnsData, setDnsData] =
     useState<Record<DnsType, string | DnsRecordAnswer[]>>();
   const [progress, setProgress] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setProgress(0);
+    setIsLoading(true);
 
-    const domain = searchParams.get('domain')!;
+    const domain = searchParams.get('domain');
+    if (!domain) return;
 
-    const fetchSslData = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getDomainSslInfo(domain);
-        setSslData(data[data.length - 1]);
+        const tasks = [
+          getDomainSslInfo(domain).then(data => {
+            setSslData(data);
+            setProgress(prevValue => prevValue + 1);
+          }),
+          getDomainInfo(domain).then(data => {
+            setWhoIsData(data);
+            setProgress(prevValue => prevValue + 1);
+          }),
+          getDnsRecordInfo(domain).then(data => {
+            setDnsData(data);
+            setProgress(prevValue => prevValue + 1);
+          }),
+        ];
+
+        await Promise.allSettled(tasks);
       } catch (error) {
         console.error(error);
       } finally {
-        setProgress(prevValue => prevValue + 1);
+        setIsLoading(false);
       }
     };
 
-    const fetchWhoIsData = async () => {
-      try {
-        const data = await getDomainInfo(domain);
-        setWhoIsData(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setProgress(prevValue => prevValue + 1);
-      }
-    };
-
-    const fetchDnsData = async () => {
-      try {
-        const data = await getDnsRecordInfo(domain);
-        setDnsData(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setProgress(prevValue => prevValue + 1);
-      }
-    };
-
-    fetchSslData();
-    fetchWhoIsData();
-    fetchDnsData();
+    fetchData();
   }, [searchParams]);
 
   return (
     <>
       <Navbar />
       <ViewContainer>
-        {progress < 3 ? (
+        {isLoading ? (
           <ProgressBar progress={progress} />
         ) : (
           <>
@@ -90,18 +83,28 @@ const Results = () => {
                   })}
               </div>
             </div>
-            <div className="w-full flex gap-4">
+            <div className="w-full h-2/5 flex gap-4">
               <div className="w-1/3">
                 <h1 className="font-semibold text-center xl:text-start mb-4">
                   SSL Info
                 </h1>
-                {sslData && <SslTable content={sslData} />}
+                {sslData ? (
+                  <SslTable content={sslData} />
+                ) : (
+                  <div className="skeleton h-full rounded-lg"></div>
+                )}
               </div>
               <div className="w-2/3">
                 <h1 className="font-semibold text-center xl:text-start mb-4">
                   WHOIS Info
                 </h1>
-                {whoIsData && <WhoisTable content={whoIsData} />}
+                {whoIsData ? (
+                  <WhoisTable content={whoIsData} />
+                ) : (
+                  <div className="skeleton h-full shadow-md rounded-lg flex items-center justify-center">
+                    <span className="loading loading-spinner loading-md text-primary"></span>
+                  </div>
+                )}
               </div>
             </div>
           </>

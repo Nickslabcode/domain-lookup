@@ -31,19 +31,19 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
               </td>
             </tr>
             <tr className="hover">
-              <th>Registered</th>
+              <th>Registered On</th>
               <td>
                 {new Date(content.result!.creation_date).toLocaleDateString()}
               </td>
             </tr>
             <tr className="hover">
-              <th>Expires</th>
+              <th>Expires On</th>
               <td>
                 {new Date(content.result!.expiration_date).toLocaleDateString()}
               </td>
             </tr>
             <tr className="hover">
-              <th>Last updated</th>
+              <th>Last updated On</th>
               <td>
                 {new Date(content.result!.updated_date).toLocaleDateString()}
               </td>
