@@ -4,7 +4,8 @@ const ShortKeys = () => {
   return (
     <div className="flex gap-5 items-center justify-center text-secondary text-xs">
       <div className="flex gap-2 items-center">
-        <kbd className="kbd kbd-sm">t</kbd> <span>- Focus search bar</span>
+        <kbd className="kbd kbd-sm text-xs py-0.5 px-1">t</kbd>{' '}
+        <span>- Focus search bar</span>
       </div>
       <div className="flex gap-2 items-center">
         <kbd className="kbd kbd-sm flex gap-1">
@@ -14,7 +15,8 @@ const ShortKeys = () => {
         <span>- Search</span>
       </div>
       <div className="flex gap-2 items-center">
-        <kbd className="kbd kbd-sm">Esc</kbd> <span>- Open search history</span>
+        <kbd className="kbd kbd-sm text-xs py-0.5 px-1">Esc</kbd>{' '}
+        <span>- Open search history</span>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { FormEvent, useState } from 'react';
-import { IoReturnDownBackSharp } from 'react-icons/io5';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const SearchForm = () => {
@@ -29,7 +28,7 @@ const SearchForm = () => {
           value={searchQuery}
           onChange={event => setSearchQuery(event.target.value)}
         />
-        <kbd className="kbd kbd-sm">t</kbd>
+        <kbd className="kbd kbd-sm text-xs py-0.5 px-1">t</kbd>
       </label>
       <button
         className="btn btn-sm btn-primary"
