@@ -16,7 +16,7 @@ const ShortKeys = () => {
       </div>
       <div className="flex gap-2 items-center">
         <kbd className="kbd kbd-sm text-xs py-0.5 px-1">Esc</kbd>{' '}
-        <span>- Open search history</span>
+        <span>- Open/close search history</span>
       </div>
     </div>
   );

@@ -32,7 +32,6 @@ const Results = () => {
     const fetchSslData = async () => {
       try {
         const data = await getDomainSslInfo(domain);
-        console.log('SSL info fetched!');
         setSslData(data[data.length - 1]);
       } catch (error) {
         console.error(error);
@@ -45,7 +44,6 @@ const Results = () => {
       try {
         const data = await getDomainInfo(domain);
         setWhoIsData(data);
-        console.log('WHOIS info fetched!');
       } catch (error) {
         console.error(error);
       } finally {
@@ -56,7 +54,6 @@ const Results = () => {
     const fetchDnsData = async () => {
       try {
         const data = await getDnsRecordInfo(domain);
-        console.log('DNS info fetched!');
         setDnsData(data);
       } catch (error) {
         console.error(error);
@@ -78,11 +75,11 @@ const Results = () => {
           <ProgressBar progress={progress} />
         ) : (
           <>
-            <div>
+            <div className="w-full">
               <h1 className="font-semibold text-center xl:text-start mb-4">
                 DNS Info
               </h1>
-              <div className="flex break-words gap-4 w-full">
+              <div className="flex break-words gap-4">
                 {dnsData &&
                   Object.entries(dnsData).map(([type, answer]) => {
                     return (

@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const SearchForm = () => {
@@ -7,11 +7,24 @@ const SearchForm = () => {
     searchParams.get('domain') || ''
   );
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => window.removeEventListener('keyup', handleKeyUp);
+  }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     setSearchParams({ domain: searchQuery });
     navigate(`/results?domain=${encodeURIComponent(searchQuery)}`);
+  };
+
+  const handleKeyUp = (event: KeyboardEvent): void => {
+    if (event.key === 't') {
+      inputRef.current?.focus();
+    }
   };
 
   return (
@@ -27,6 +40,7 @@ const SearchForm = () => {
           autoFocus
           value={searchQuery}
           onChange={event => setSearchQuery(event.target.value)}
+          ref={inputRef}
         />
         <kbd className="kbd kbd-sm text-xs py-0.5 px-1">t</kbd>
       </label>
