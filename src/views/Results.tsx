@@ -36,12 +36,12 @@ const Results = () => {
       try {
         const tasks = [
           getDomainSslInfo(domain).then(data => {
-            setSslData(data);
+            setSslData(data[data.length - 1]);
             setProgress(prevValue => prevValue + 1);
           }),
           getDomainInfo(domain).then(data => {
             setWhoIsData(data);
-            setProgress(prevValue => prevValue + 1);
+            setProgress(prevValue => prevValue + 2);
           }),
           getDnsRecordInfo(domain).then(data => {
             setDnsData(data);
@@ -49,7 +49,7 @@ const Results = () => {
           }),
         ];
 
-        await Promise.allSettled(tasks);
+        await Promise.all(tasks);
       } catch (error) {
         console.error(error);
       } finally {
@@ -72,7 +72,7 @@ const Results = () => {
               <h1 className="font-semibold text-center xl:text-start mb-4">
                 DNS Info
               </h1>
-              <div className="flex break-words gap-4">
+              <div className="grid justify-center lg:justify-normal lg:grid-flow-col lg:auto-cols-auto break-words gap-4">
                 {dnsData &&
                   Object.entries(dnsData).map(([type, answer]) => {
                     return (
@@ -83,28 +83,18 @@ const Results = () => {
                   })}
               </div>
             </div>
-            <div className="w-full h-2/5 flex gap-4">
-              <div className="w-1/3">
+            <div className="w-full grid lg:grid-cols-3 lg:gap-4 justify-center">
+              <div className="max-w-xl lg:max-w-full lg:col-span-1">
                 <h1 className="font-semibold text-center xl:text-start mb-4">
                   SSL Info
                 </h1>
-                {sslData ? (
-                  <SslTable content={sslData} />
-                ) : (
-                  <div className="skeleton h-full rounded-lg"></div>
-                )}
+                {sslData && <SslTable content={sslData} />}
               </div>
-              <div className="w-2/3">
+              <div className="max-w-xl lg:max-w-full lg:col-span-2">
                 <h1 className="font-semibold text-center xl:text-start mb-4">
                   WHOIS Info
                 </h1>
-                {whoIsData ? (
-                  <WhoisTable content={whoIsData} />
-                ) : (
-                  <div className="skeleton h-full shadow-md rounded-lg flex items-center justify-center">
-                    <span className="loading loading-spinner loading-md text-primary"></span>
-                  </div>
-                )}
+                {whoIsData && <WhoisTable content={whoIsData} />}
               </div>
             </div>
           </>

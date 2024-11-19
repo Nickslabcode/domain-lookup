@@ -5,14 +5,14 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
   content,
 }) => {
   return (
-    <div className="flex h-full flex-col break-words shadow-md p-4 rounded-lg cursor-default">
+    <div className="flex  h-full max-h-screen flex-col break-words shadow-md p-4 rounded-lg cursor-default overflow-y-auto">
       {typeof content === 'string' ? (
         <h1>
           Domain name is not registered or there was a problem fetching the
           data.
         </h1>
       ) : (
-        <table className="table">
+        <table className="table table-xs">
           <tbody>
             <tr className="hover">
               <th>Registrar</th>

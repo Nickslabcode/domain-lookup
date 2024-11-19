@@ -1,7 +1,7 @@
 export enum DnsType {
 	A = 'A',
-	AAAA = 'AAAA',
-	CNAME = 'CNAME',
-	TXT = 'TXT',
 	MX = 'MX',
+	CNAME = 'CNAME',
+	AAAA = 'AAAA',
+	TXT = 'TXT',
 }

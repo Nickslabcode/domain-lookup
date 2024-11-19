@@ -3,11 +3,11 @@ import React from 'react';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SslTable: React.FC<{ content: Record<string, any> }> = ({ content }) => {
   return (
-    <div className="flex h-full flex-col break-words shadow-md p-4 rounded-lg cursor-default">
+    <div className="flex h-full max-h-screen flex-col break-words shadow-md p-4 rounded-lg cursor-default overflow-y-auto">
       {!content ? (
         <h1>No SSL certificate found.</h1>
       ) : (
-        <table className="table">
+        <table className="table table-xs">
           <tbody>
             <tr className="hover">
               <th>Issuer</th>
@@ -15,13 +15,7 @@ const SslTable: React.FC<{ content: Record<string, any> }> = ({ content }) => {
             </tr>
             <tr className="hover">
               <th>Covers</th>
-              <td>
-                <ul>
-                  {content.dns_names?.map((dns: string, idx: number) => (
-                    <li key={idx}>{dns}</li>
-                  ))}
-                </ul>
-              </td>
+              <td>{content.dns_names?.join(', ')}</td>
             </tr>
             <tr className="hover">
               <th>Issued On</th>
