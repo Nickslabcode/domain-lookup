@@ -13,7 +13,6 @@ import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
 import { DnsType } from '../enums/DnsType.enum';
 import SslTable from '../components/SslTable';
 import WhoisTable from '../components/WhoisTable';
-import ShortKeys from '../components/ShortKeys';
 
 const Results = () => {
   const [searchParams] = useSearchParams();
@@ -83,24 +82,23 @@ const Results = () => {
                   })}
               </div>
             </div>
-            <div className="w-full grid lg:grid-cols-3 lg:gap-4 justify-center">
-              <div className="max-w-xl lg:max-w-full lg:col-span-1">
-                <h1 className="font-semibold text-center xl:text-start mb-4">
-                  SSL Info
-                </h1>
-                {sslData && <SslTable content={sslData} />}
-              </div>
+            <div className="w-full grid lg:grid-cols-3 gap-4 justify-center">
               <div className="max-w-xl lg:max-w-full lg:col-span-2">
                 <h1 className="font-semibold text-center xl:text-start mb-4">
                   WHOIS Info
                 </h1>
                 {whoIsData && <WhoisTable content={whoIsData} />}
               </div>
+              <div className="max-w-xl lg:max-w-full lg:col-span-1">
+                <h1 className="font-semibold text-center xl:text-start mb-4">
+                  SSL Info
+                </h1>
+                {sslData && <SslTable content={sslData} />}
+              </div>
             </div>
           </>
         )}
       </ViewContainer>
-      <ShortKeys />
       <Footer />
     </>
   );
