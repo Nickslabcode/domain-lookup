@@ -2,7 +2,6 @@ import ViewContainer from '../hoc/ViewContainer';
 import Footer from '../components/Footer';
 import SearchForm from '../components/SearchForm';
 import Logo from '../components/Logo';
-import ShortKeys from '../components/ShortKeys';
 
 const Home = () => {
   return (
@@ -11,7 +10,6 @@ const Home = () => {
         <Logo />
         <SearchForm />
       </ViewContainer>
-      <ShortKeys />
       <Footer />
     </>
   );
