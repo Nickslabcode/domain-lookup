@@ -40,7 +40,7 @@ jobs:
 
       # Deploy dist files to hosting
       - name: Deploy to remove server
-        run: scp -r -P ${{ secrets.SSH_PORT }} -o strictHostKeyChecking=no ./dist/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:www/domain-lookup.${{ vars.DOMAIN }}/public_html
+        run: scp -r -P ${{ secrets.SSH_PORT }} -o strictHostKeyChecking=no ./dist/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:www/${{ vars.DOMAIN }}/public_html
 
       # Clear cache on the server
       - name: Clear cache on the server
@@ -48,4 +48,4 @@ jobs:
 
       # Show link
       - name: Show link
-        run: echo "Deployed! https://domain-lookup.${{ vars.DOMAIN }}"
+        run: echo "Deployed! https://${{ vars.DOMAIN }}"
