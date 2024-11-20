@@ -29,3 +29,11 @@ body {
   text-align: center;
   margin: 0 auto;
 }
+
+html {
+  /* Fixing an issue where the layout shifts to the left
+  due to invisible scrollbar when dialog modal opens
+  https://github.com/saadeghi/daisyui/issues/3040#issuecomment-2131174823
+  */
+  scrollbar-gutter: auto !important;
+}
