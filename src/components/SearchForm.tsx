@@ -19,14 +19,16 @@ const SearchForm = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    setSearchParams({ domain: searchQuery });
+    if (searchParams.get('domain') === searchQuery) return;
+
     historyPush(searchQuery);
+    setSearchParams({ domain: searchQuery });
     navigate(`/results?domain=${encodeURIComponent(searchQuery)}`);
   };
 
   const handleKeyUp = (event: KeyboardEvent): void => {
     if (event.key === 't') {
-      inputRef.current?.focus();
+      inputRef.current!.focus();
     }
   };
 
@@ -50,7 +52,11 @@ const SearchForm = () => {
       <button
         className="btn btn-sm btn-primary"
         type="submit"
-        disabled={searchQuery ? false : true}
+        disabled={
+          searchQuery && searchParams.get('domain') !== searchQuery
+            ? false
+            : true
+        }
       >
         Accio!
       </button>

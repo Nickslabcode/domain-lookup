@@ -5,6 +5,12 @@ import { historyObject } from '../interfaces/HistoryObject';
 const HistoryModal = () => {
   const { isModalOpen, history } = useHistoryModal();
   const historyInputRef = useRef<HTMLInputElement | null>(null);
+  const sortHistoryArray = useMemo(() => {
+    return history.sort(
+      (a: historyObject, b: historyObject) =>
+        Number(b.searchedOn) - Number(a.searchedOn)
+    );
+  }, [history]);
 
   useEffect(() => {
     const modal: HTMLDialogElement = document.querySelector('#history_modal')!;
@@ -19,13 +25,6 @@ const HistoryModal = () => {
 
     return () => modal.removeEventListener('keyup', handleKeyUp);
   }, [isModalOpen]);
-
-  const sortHistoryArray = useMemo(() => {
-    return history.sort(
-      (a: historyObject, b: historyObject) =>
-        Number(b.searchedOn) - Number(a.searchedOn)
-    );
-  }, [history]);
 
   const handleKeyUp = (event: KeyboardEvent): void => {
     if (event.key === 't') {
@@ -70,22 +69,6 @@ const HistoryModal = () => {
             )}
           </tbody>
         </table>
-        {/* <ul>
-          {history
-            .sort(
-              (a: historyObject, b: historyObject) =>
-                Number(b.searchedOn) - Number(a.searchedOn)
-            )
-            .map(({ domain, searchedOn }: historyObject, idx: number) => (
-              <tr
-                key={idx}
-                className="flex justify-between text-sm text-secondary mt-1 hover:bg-base-200"
-              >
-                <td>{domain}</td>
-                <td>{new Date(Number(searchedOn)).toLocaleString()}</td>
-              </tr>
-            ))}
-        </ul> */}
       </div>
     </dialog>
   );
