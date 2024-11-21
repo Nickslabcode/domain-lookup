@@ -12,6 +12,7 @@ interface HistoryContextType {
   history: any;
   historyPush: (newDomain: string) => void;
   handleOpenCloseModal: (event: KeyboardEvent) => void;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
@@ -44,7 +45,13 @@ export const HistoryProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <HistoryContext.Provider
-      value={{ history, historyPush, isModalOpen, handleOpenCloseModal }}
+      value={{
+        history,
+        historyPush,
+        isModalOpen,
+        handleOpenCloseModal,
+        setIsModalOpen,
+      }}
     >
       {children}
     </HistoryContext.Provider>

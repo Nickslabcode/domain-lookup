@@ -5,9 +5,7 @@ import { isDomainValid } from '../helpers/isDomainValid.helper';
 
 const SearchForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(
-    searchParams.get('domain') || ''
-  );
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { historyPush } = useHistoryModal();

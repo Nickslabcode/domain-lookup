@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useHistoryModal } from '../providers/HistoryProvider';
 import { HistoryObject } from '../interfaces/HistoryObject';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const HistoryModal = () => {
-  const { isModalOpen, history } = useHistoryModal();
+  const { setIsModalOpen, isModalOpen, history, historyPush } =
+    useHistoryModal();
   const historyInputRef = useRef<HTMLInputElement | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [_searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const sortedHistoryArray = useMemo(() => {
     return history.sort(
@@ -42,6 +46,14 @@ const HistoryModal = () => {
     }
   };
 
+  const handleClick = (value: string) => {
+    setIsModalOpen(false);
+    setSearchQuery('');
+    historyPush(value);
+    setSearchParams({ domain: value });
+    navigate(`/results?domain=${encodeURIComponent(value)}`);
+  };
+
   return (
     <dialog id="history_modal" className="modal">
       <div className="modal-box">
@@ -59,44 +71,50 @@ const HistoryModal = () => {
           />
           <kbd className="kbd kbd-sm text-xs py-0.5 px-1">t</kbd>
         </label>
-        <table className="table table-xs">
-          <thead>
-            <tr>
-              <th>Domain</th>
-              <th className="text-end">Searched on</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredHistoryArray.map(
-              ({ domain, searchedOn }: HistoryObject, idx: number) => {
-                const domainParts = domain.split(
-                  new RegExp(`(${searchQuery})`)
-                );
-                return (
-                  <tr key={idx} className="text-sm text-secondary hover">
-                    <td>
-                      {domainParts.map((part: string, idx: number) => {
-                        return part === searchQuery ? (
-                          <span
-                            key={idx}
-                            className="bg-primary text-primary-content"
-                          >
-                            {part}
-                          </span>
-                        ) : (
-                          <span key={idx}>{part}</span>
-                        );
-                      })}
-                    </td>
-                    <td className="text-end">
-                      {new Date(Number(searchedOn)).toLocaleString()}
-                    </td>
-                  </tr>
-                );
-              }
-            )}
-          </tbody>
-        </table>
+        <div className="h-72 overflow-y-scroll">
+          <table className="table table-xs table-pin-rows">
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th className="text-end">Searched on</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredHistoryArray.map(
+                ({ domain, searchedOn }: HistoryObject, idx: number) => {
+                  const domainParts = domain.split(
+                    new RegExp(`(${searchQuery})`)
+                  );
+                  return (
+                    <tr
+                      key={idx}
+                      className="text-sm text-secondary hover cursor-pointer"
+                      onClick={() => handleClick(domain)}
+                    >
+                      <td>
+                        {domainParts.map((part: string, idx: number) => {
+                          return part === searchQuery ? (
+                            <span
+                              key={idx}
+                              className="bg-primary text-primary-content"
+                            >
+                              {part}
+                            </span>
+                          ) : (
+                            <span key={idx}>{part}</span>
+                          );
+                        })}
+                      </td>
+                      <td className="text-end">
+                        {new Date(Number(searchedOn)).toLocaleString()}
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </dialog>
   );
