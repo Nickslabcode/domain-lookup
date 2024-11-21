@@ -40,7 +40,7 @@ const Results = () => {
           }),
           getDomainInfo(domain).then(data => {
             setWhoIsData(data);
-            setProgress(prevValue => prevValue + 2);
+            setProgress(prevValue => prevValue + 1);
           }),
           getDnsRecordInfo(domain).then(data => {
             setDnsData(data);

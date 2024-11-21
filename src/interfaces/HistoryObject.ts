@@ -1,4 +1,4 @@
-export interface historyObject {
+export interface HistoryObject {
   domain: string;
   searchedOn: string;
 }

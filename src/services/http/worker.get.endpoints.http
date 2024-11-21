@@ -14,7 +14,7 @@ GET {{ WORKER_API_URL }}/whois?domain=nickslabcode.com
 
 ###
 # @import ./variables.http
-GET {{ WORKER_API_URL }}/ssl?domain=nikola-nenovski.info
+GET {{ WORKER_API_URL }}/whois?domain=nikola-nenovski.info
 // Sending a request with an domain name from a reseller
 
 ###
