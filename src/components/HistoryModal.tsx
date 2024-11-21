@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useHistoryModal } from '../providers/HistoryProvider';
 
 const HistoryModal = () => {
-  const { isModalOpen } = useHistoryModal();
+  const { isModalOpen, history } = useHistoryModal();
 
   useEffect(() => {
     const modal: HTMLDialogElement = document.querySelector('#history_modal')!;
@@ -17,13 +17,13 @@ const HistoryModal = () => {
   return (
     <dialog id="history_modal" className="modal">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Hello!</h3>
-        <p className="py-4">Press ESC key or click the button below to close</p>
-        <div className="modal-action">
-          <form method="dialog">
-            <button className="btn">Close</button>
-          </form>
-        </div>
+        <h3 className="font-bold text-lg">Search history</h3>
+        <p className="py-4">Press ESC key to close</p>
+        <ul>
+          {history.map((domain: string, idx: string) => (
+            <li key={idx}>{domain}</li>
+          ))}
+        </ul>
       </div>
     </dialog>
   );

@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useHistoryModal } from '../providers/HistoryProvider';
 
 const SearchForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -8,6 +9,7 @@ const SearchForm = () => {
   );
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { historyPush } = useHistoryModal();
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeyUp);
@@ -18,6 +20,7 @@ const SearchForm = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     setSearchParams({ domain: searchQuery });
+    historyPush(searchQuery);
     navigate(`/results?domain=${encodeURIComponent(searchQuery)}`);
   };
 

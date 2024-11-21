@@ -8,8 +8,9 @@ import React, {
 
 interface HistoryContextType {
   isModalOpen: boolean;
-  history: string[];
-  add: (newDomain: string) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  history: any;
+  historyPush: (newDomain: string) => void;
   handleOpenCloseModal: (event: KeyboardEvent) => void;
 }
 
@@ -18,7 +19,9 @@ const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
 export const HistoryProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [history, setHistory] = useState<string[]>([]);
+  const [history, setHistory] = useState(
+    () => JSON.parse(localStorage.getItem('history') || 'null') || []
+  );
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -31,7 +34,7 @@ export const HistoryProvider: React.FC<{ children: ReactNode }> = ({
     return () => window.removeEventListener('keyup', handleOpenCloseModal);
   }, []);
 
-  const add = (newDomain: string) => {
+  const historyPush = (newDomain: string) => {
     setHistory([...history, newDomain]);
   };
 
@@ -41,7 +44,7 @@ export const HistoryProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <HistoryContext.Provider
-      value={{ history, add, isModalOpen, handleOpenCloseModal }}
+      value={{ history, historyPush, isModalOpen, handleOpenCloseModal }}
     >
       {children}
     </HistoryContext.Provider>
