@@ -38,7 +38,7 @@ const SearchForm = () => {
       >
         <input
           type="text"
-          className="grow"
+          className="grow placeholder:text-xs"
           placeholder="Type a domain..."
           autoFocus
           value={searchQuery}
