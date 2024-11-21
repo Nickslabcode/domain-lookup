@@ -1,19 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useHistoryModal } from '../providers/HistoryProvider';
 import { historyObject } from '../interfaces/HistoryObject';
 
 const HistoryModal = () => {
   const { isModalOpen, history } = useHistoryModal();
+  const historyInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const modal: HTMLDialogElement = document.querySelector('#history_modal')!;
 
     if (isModalOpen) {
       modal.showModal();
+      modal.addEventListener('keyup', handleKeyUp);
     } else {
       modal.close();
+      modal.removeEventListener('keyup', handleKeyUp);
     }
+
+    return () => modal.removeEventListener('keyup', handleKeyUp);
   }, [isModalOpen]);
+
+  const sortHistoryArray = useMemo(() => {
+    return history.sort(
+      (a: historyObject, b: historyObject) =>
+        Number(b.searchedOn) - Number(a.searchedOn)
+    );
+  }, [history]);
+
+  const handleKeyUp = (event: KeyboardEvent): void => {
+    if (event.key === 't') {
+      historyInputRef.current?.focus();
+    }
+  };
 
   return (
     <dialog id="history_modal" className="modal">
@@ -26,10 +44,9 @@ const HistoryModal = () => {
             type="text"
             className="grow placeholder:text-xs"
             placeholder="Search..."
-            autoFocus
             // value={searchQuery}
             // onChange={event => setSearchQuery(event.target.value)}
-            // ref={inputRef}
+            ref={historyInputRef}
           />
           <kbd className="kbd kbd-sm text-xs py-0.5 px-1">t</kbd>
         </label>
@@ -41,19 +58,16 @@ const HistoryModal = () => {
             </tr>
           </thead>
           <tbody>
-            {history
-              .sort(
-                (a: historyObject, b: historyObject) =>
-                  Number(b.searchedOn) - Number(a.searchedOn)
-              )
-              .map(({ domain, searchedOn }: historyObject, idx: number) => (
+            {sortHistoryArray.map(
+              ({ domain, searchedOn }: historyObject, idx: number) => (
                 <tr key={idx} className="text-sm text-secondary hover">
                   <td>{domain}</td>
                   <td className="text-end">
                     {new Date(Number(searchedOn)).toLocaleString()}
                   </td>
                 </tr>
-              ))}
+              )
+            )}
           </tbody>
         </table>
         {/* <ul>
