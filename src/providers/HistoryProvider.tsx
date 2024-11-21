@@ -35,7 +35,7 @@ export const HistoryProvider: React.FC<{ children: ReactNode }> = ({
   }, []);
 
   const historyPush = (newDomain: string) => {
-    setHistory([...history, newDomain]);
+    setHistory([...history, { domain: newDomain, searchedOn: Date.now() }]);
   };
 
   const handleOpenCloseModal = (event: KeyboardEvent) => {
