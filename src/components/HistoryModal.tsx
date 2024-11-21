@@ -55,7 +55,7 @@ const HistoryModal = () => {
   };
 
   return (
-    <dialog id="history_modal" className="modal">
+    <dialog id="history_modal" className="modal backdrop-blur-sm">
       <div className="modal-box">
         <label
           className="flex items-center input input-sm input-bordered w-full mb-4"
@@ -73,7 +73,7 @@ const HistoryModal = () => {
         </label>
         <div className="h-72 overflow-y-scroll">
           <table className="table table-xs table-pin-rows">
-            <thead>
+            <thead className="cursor-default">
               <tr>
                 <th>Domain</th>
                 <th className="text-end">Searched on</th>
