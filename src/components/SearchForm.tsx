@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useHistoryModal } from '../providers/HistoryProvider';
+import { isDomainValid } from '../helpers/isDomainValid.helper';
 
 const SearchForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -10,6 +11,7 @@ const SearchForm = () => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { historyPush } = useHistoryModal();
+  const [isValid, setIsValid] = useState<boolean>(false);
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeyUp);
@@ -17,9 +19,15 @@ const SearchForm = () => {
     return () => window.removeEventListener('keyup', handleKeyUp);
   }, []);
 
+  useEffect(() => {
+    setIsValid(false);
+
+    if (isDomainValid(searchQuery)) setIsValid(true);
+  }, [searchQuery]);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    if (searchParams.get('domain') === searchQuery) return;
+    if (searchParams.get('domain') === searchQuery && !isValid) return;
 
     historyPush(searchQuery);
     setSearchParams({ domain: searchQuery });
@@ -44,7 +52,7 @@ const SearchForm = () => {
           placeholder="Type a domain..."
           autoFocus
           value={searchQuery}
-          onChange={event => setSearchQuery(event.target.value)}
+          onChange={event => setSearchQuery(event.target.value.toLowerCase())}
           ref={inputRef}
         />
         <kbd className="kbd kbd-sm text-xs py-0.5 px-1">t</kbd>
@@ -52,11 +60,7 @@ const SearchForm = () => {
       <button
         className="btn btn-sm btn-primary"
         type="submit"
-        disabled={
-          searchQuery && searchParams.get('domain') !== searchQuery
-            ? false
-            : true
-        }
+        disabled={searchQuery && isValid ? false : true}
       >
         Accio!
       </button>
