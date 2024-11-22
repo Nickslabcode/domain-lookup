@@ -12,7 +12,7 @@
     "acp": "git add . && npm run commit && git push origin dev",
     "dev:domainlookup": "npx wrangler dev --config workers/domainlookup/wrangler.toml",
     "deploy:domainlookup": "npx wrangler deploy --config workers/domainlookup/wrangler.toml",
-    "semantic-release": "semantic-release --branches dev"
+    "semantic-release": "semantic-release --branches main"
   },
   "dependencies": {
     "@types/axios": "^0.14.4",
@@ -33,7 +33,6 @@
     "@types/autoprefixer": "^10.2.4",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@types/semantic-release": "^20.0.6",
     "@types/tailwindcss": "^3.1.0",
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
