@@ -10,15 +10,15 @@ const MarkdownRenderedComponent: React.FC<{ content: string }> = ({
       remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ ...props }) => (
-          <h1 className="text-2xl my-5 break-words font-bold" {...props} />
+          <h1 className="text-xl my-5 break-words font-semibold" {...props} />
         ),
 
         h2: ({ ...props }) => (
-          <h2 className="text-xl font-semibold my-5 break-words" {...props} />
+          <h2 className="text-lg font-semibold my-5 break-words" {...props} />
         ),
 
         h3: ({ ...props }) => (
-          <h3 className="text-lg font-semibold my-3 break-words" {...props} />
+          <h3 className="text-base font-semibold my-3 break-words" {...props} />
         ),
 
         p: ({ ...props }) => <p className="text-md break-words" {...props} />,
