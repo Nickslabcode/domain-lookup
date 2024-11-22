@@ -22,3 +22,7 @@ GET http://localhost:8787/dns?domain=nikola-nenovski.info
 
 ###
 GET http://localhost:8787/whois?domain=nikola-nenovski.info
+
+###
+
+GET https://api.github.com/repos/Nickslabcode/domain-info-lookup/releases
