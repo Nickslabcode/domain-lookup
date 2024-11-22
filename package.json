@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "commit": "git cz",
+    "acp": "git add . && npm run commit && npm push origin dev",
     "dev:domainlookup": "npx wrangler dev --config workers/domainlookup/wrangler.toml",
     "deploy:domainlookup": "npx wrangler deploy --config workers/domainlookup/wrangler.toml",
     "semantic-release": "semantic-release --branches dev"
