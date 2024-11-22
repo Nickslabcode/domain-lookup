@@ -7,14 +7,14 @@ import { IoCloseSharp } from 'react-icons/io5';
 const AppVersion = () => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
   const [version, setVersion] = useState<string>('');
-  const [changelog, setChangelog] = useState<string>('');
+  const [changelog, setChangelog] = useState<[]>([]);
 
   useEffect(() => {
     const fetchChangelogData = async () => {
       try {
         const data = await getChangelogInfo();
-        setVersion(data.tag_name);
-        setChangelog(data.body);
+        setVersion(data[0].tag_name);
+        setChangelog(data);
       } catch (error) {
         console.error(error);
       }
@@ -41,7 +41,9 @@ const AppVersion = () => {
       </div>
       <dialog id="my_modal_2" className="modal backdrop-blur-sm" ref={modalRef}>
         <div className="modal-box text-start h-1/2 max-w-2xl">
-          <MarkdownRenderedComponent content={changelog} />
+          {changelog.map((data: Record<string, string>) => (
+            <MarkdownRenderedComponent content={data.body} />
+          ))}
           <form method="dialog">
             <button className=" btn-sm btn-circle absolute right-2 top-2 hover:text-secondary-content">
               <IoCloseSharp />

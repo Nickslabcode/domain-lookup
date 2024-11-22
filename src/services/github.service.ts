@@ -6,7 +6,7 @@ export const getChangelogInfo = async () => {
       'https://api.github.com/repos/Nickslabcode/domain-info-lookup/releases'
     );
 
-    return response.data[0];
+    return response.data;
   } catch (error) {
     throw new Error(
       `There was a problem fetching the changelog data: ${error}`
