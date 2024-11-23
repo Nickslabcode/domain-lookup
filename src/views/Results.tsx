@@ -13,6 +13,7 @@ import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
 import { DnsType } from '../enums/DnsType.enum';
 import SslTable from '../components/SslTable';
 import WhoisTable from '../components/WhoisTable';
+import { H1 } from '../hoc/H1';
 
 const Results = () => {
   const [searchParams] = useSearchParams();
@@ -68,9 +69,7 @@ const Results = () => {
         ) : (
           <>
             <div className="w-full">
-              <h1 className="font-semibold text-center xl:text-start mb-4">
-                DNS Info
-              </h1>
+              <H1 className="xl:text-start mb-4">DNS Info</H1>
               <div className="grid justify-center lg:justify-normal lg:grid-flow-col lg:auto-cols-auto break-words gap-4">
                 {dnsData &&
                   Object.entries(dnsData).map(([type, answer]) => {
@@ -84,15 +83,11 @@ const Results = () => {
             </div>
             <div className="w-full grid lg:grid-cols-3 gap-4 justify-center">
               <div className="max-w-xl lg:max-w-full lg:col-span-2">
-                <h1 className="font-semibold text-center xl:text-start mb-4">
-                  WHOIS Info
-                </h1>
+                <H1 className="xl:text-start mb-4">WHOIS Info</H1>
                 {whoIsData && <WhoisTable content={whoIsData} />}
               </div>
               <div className="max-w-xl lg:max-w-full lg:col-span-1">
-                <h1 className="font-semibold text-center xl:text-start mb-4">
-                  SSL Info
-                </h1>
+                <H1 className="xl:text-start mb-4">SSL Info</H1>
                 {sslData && <SslTable content={sslData} />}
               </div>
             </div>

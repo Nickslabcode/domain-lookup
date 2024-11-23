@@ -9,7 +9,7 @@ const Table: React.FC<{
   return (
     typeof content !== 'string' && (
       <div className="flex max-w-xl lg:max-w-full flex-col break-words cursor-default shadow-md p-4 rounded-lg">
-        <h1 className="font-semibold">{type.toUpperCase()}</h1>
+        <h2 className="font-semibold">{type.toUpperCase()}</h2>
         <table className="table table-xs cursor-default">
           <thead>
             <tr>

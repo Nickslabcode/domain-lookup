@@ -1,4 +1,5 @@
 import React from 'react';
+import { H1 } from '../hoc/H1';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
@@ -7,10 +8,10 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
   return (
     <div className="flex lg:h-full flex-col break-words shadow-md p-4 rounded-lg cursor-default overflow-y-auto">
       {typeof content === 'string' ? (
-        <h1>
+        <H1>
           Domain name is not registered or there was a problem fetching the
           data.
-        </h1>
+        </H1>
       ) : (
         <table className="table table-xs">
           <tbody>
