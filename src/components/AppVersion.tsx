@@ -42,7 +42,10 @@ const AppVersion = () => {
       <dialog id="my_modal_2" className="modal backdrop-blur-sm" ref={modalRef}>
         <div className="modal-box text-start h-1/2 max-w-2xl">
           {changelog.map((data: Record<string, string>) => (
-            <MarkdownRenderedComponent content={data.body} />
+            <MarkdownRenderedComponent
+              content={data.body}
+              key={data.tag_name}
+            />
           ))}
           <form method="dialog">
             <button className=" btn-sm btn-circle absolute right-2 top-2 hover:text-secondary-content">
