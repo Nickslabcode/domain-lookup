@@ -13,12 +13,13 @@ export const wpCheck = async (request: Request): Promise<Response> => {
 	};
 
 	try {
-		const response = await fetch(`http://${domain}/readme.html`, {
-			method: 'HEAD',
-		});
+		const response = await fetch(`http://${domain}/readme.html`);
 
 		if (response.ok) {
-			return new Response(JSON.stringify({ installed: true }), {
+			const data = await response.text();
+			const answer = data.includes('wordpress');
+
+			return new Response(JSON.stringify({ isInstalled: answer }), {
 				status: 200,
 				headers: { ...headers, 'Content-Type': 'application/json' },
 			});
