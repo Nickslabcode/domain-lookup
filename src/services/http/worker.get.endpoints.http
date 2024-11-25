@@ -1,5 +1,5 @@
 # @import ./variables.http
-GET {{ WORKER_API_URL }}/whois?domain={{ ACTIVE_DOMAIN }}
+GET {{ WORKER_API_URL }}/dns?domain={{ ACTIVE_DOMAIN }}
 // Sending a valid request with an active domain
 
 ###
@@ -18,7 +18,7 @@ GET {{ WORKER_API_URL }}/whois?domain=abv.bg
 // Sending a request with an domain name from a reseller
 
 ###
-GET http://localhost:8787/dns?domain=nikola-nenovski.info
+GET http://localhost:8787/wp-check?domain=mrtnbdrv.com
 
 ###
 GET http://localhost:8787/whois?domain=nikola-nenovski.info
@@ -26,3 +26,11 @@ GET http://localhost:8787/whois?domain=nikola-nenovski.info
 ###
 
 GET https://api.github.com/repos/Nickslabcode/domain-info-lookup/releases
+
+###
+# @import ./variables.http
+GET {{ WORKER_API_URL }}/wp-check?domain=mrtnbdrv.com
+
+###
+# @import ./variables.http
+GET {{ WORKER_API_URL }}/wp-check?domain=nikola-nenovski.info
