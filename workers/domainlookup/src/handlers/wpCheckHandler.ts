@@ -13,7 +13,15 @@ export const wpCheck = async (request: Request): Promise<Response> => {
 	};
 
 	try {
-		const response = await fetch(`http://${domain}/readme.html`);
+		const response = await fetch(`https://${domain}/readme.html`, {
+			headers: {
+				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36',
+				Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+				'Accept-Language': 'en-US,en;q=0.9',
+				Referer: `https://${domain}/`,
+				Connection: 'keep-alive',
+			},
+		});
 
 		if (response.ok) {
 			const data = await response.text();
