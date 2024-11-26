@@ -129,11 +129,11 @@ export default {
           success: '#859900',
           'success-content': '#fdf6e3',
 
-          warning: '#dc322f',
+          warning: '#e2b714',
           'warning-content': '#fdf6e3',
 
-          error: '#d33682',
-          'error-content': '#9b225c',
+          error: '#da3333',
+          'error-content': '#fedad5',
         },
       },
     ],
