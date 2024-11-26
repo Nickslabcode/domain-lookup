@@ -1,30 +1,78 @@
 import { FaCheck } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
+import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
+import { FiExternalLink } from 'react-icons/fi';
+import { useSearchParams } from 'react-router-dom';
+import { useMemo } from 'react';
 
-const Markers = () => {
+interface MarkersPropsType {
+  AAAA: DnsRecordAnswer[] | string | undefined;
+  hasWp: boolean;
+  hasWwwRecord: boolean;
+  dnssec: string | undefined;
+  wwwSsl: boolean;
+}
+
+const Markers: React.FC<MarkersPropsType> = ({
+  AAAA,
+  hasWp,
+  hasWwwRecord,
+  dnssec,
+  wwwSsl,
+}) => {
+  const [searchParams] = useSearchParams();
+  const wpCheckUrl = useMemo(
+    () => `https://${searchParams.get('domain')}/readme.html`,
+    [searchParams]
+  );
+
   return (
-    <div className="my-20 bg-base-200 py-2 px-4 rounded-lg text-secondary">
+    <div className="mb-5 bg-base-200 py-2 px-4 rounded-lg text-secondary cursor-default">
       <ul className="flex gap-6 text-xs items-center">
         <li className="flex items-center gap-2">
-          <h3 className="font-semibold">AAAA</h3>
-          <div className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
-            <IoClose size={12} />
-            {/* <FaCheck size={10} /> */}
-          </div>
+          <h3 className="font-semibold">NO AAAA</h3>
+          {Array.isArray(AAAA) ? (
+            <div className="bg-error text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
+              <IoClose size={12} />
+            </div>
+          ) : typeof AAAA === 'string' ? (
+            <div className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
+              <FaCheck size={8} />
+            </div>
+          ) : (
+            <span className="bg-secondary text-neutral font-semibold text-xs px-1 rounded">
+              N/A
+            </span>
+          )}
         </li>
         <li className="flex items-center gap-2">
           <h3 className="font-semibold">WWW DNS</h3>
-          <div className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
-            {/* <span>3</span> */}
-            <FaCheck size={8} />
-          </div>
+          {hasWwwRecord ? (
+            <div className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
+              <FaCheck size={8} />
+            </div>
+          ) : (
+            <div className="bg-error text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
+              <IoClose size={12} />
+            </div>
+          )}
         </li>
         <div className="bg-secondary w-0.5 h-3 rounded-full"></div>
         <li className="flex items-center gap-2">
           <h3 className="font-semibold">DNSSEC</h3>
-          <span className="bg-success text-neutral font-semibold text-xs px-1 rounded">
-            unsigned
-          </span>
+          {!dnssec ? (
+            <span className="bg-secondary text-neutral font-semibold text-xs px-1 rounded">
+              N/A
+            </span>
+          ) : dnssec === 'unsigned' ? (
+            <span className="bg-success text-neutral font-semibold text-xs px-1 rounded">
+              unsigned
+            </span>
+          ) : (
+            <span className="bg-error text-neutral font-semibold text-xs px-1 rounded">
+              active
+            </span>
+          )}
         </li>
         <li className="flex gap-2">
           <h3 className="font-semibold">STATUS</h3>
@@ -42,23 +90,31 @@ const Markers = () => {
         <li className="flex gap-2">
           <h3 className="font-semibold">HAS CDN</h3>
           <div className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
-            {/* <span>3</span> */}
             <FaCheck size={8} />
           </div>
         </li>
         <li className="flex gap-2">
           <h3 className="font-semibold">WWW SSL</h3>
-          <div className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
-            {/* <span>3</span> */}
-            <FaCheck size={8} />
-          </div>
+          {wwwSsl ? (
+            <div className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
+              <FaCheck size={8} />
+            </div>
+          ) : (
+            <div className="bg-error text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
+              <IoClose size={12} />
+            </div>
+          )}
         </li>
-        <li className="flex gap-2">
+        <li className="flex items-center">
           <h3 className="font-semibold">HAS WP</h3>
-          <div className="bg-error text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
-            <IoClose size={12} />
-            {/* <FaCheck size={10} /> */}
-          </div>
+          <a
+            href={wpCheckUrl}
+            className="btn btn-xs btn-link font-semibold hover:text-neutral-content gap-0.5"
+            target="_blank"
+          >
+            check
+            <FiExternalLink strokeWidth={3} />
+          </a>
         </li>
       </ul>
     </div>
