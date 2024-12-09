@@ -35,7 +35,7 @@ const AppVersion = () => {
       >
         <IoGitBranch size={18} />
         <span className="font-semibold">{version}</span>
-        <span className="bg-primary text-neutral font-semibold text-xs px-1 rounded">
+        <span className="bg-primary text-primary-content font-semibold text-xs px-1 rounded">
           beta
         </span>
       </div>

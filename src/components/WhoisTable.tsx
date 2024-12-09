@@ -6,7 +6,7 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
   content,
 }) => {
   return (
-    <div className="flex lg:h-full flex-col break-words shadow-md p-4 rounded-lg cursor-default overflow-y-auto">
+    <div className="flex lg:h-full flex-col break-words border border-base-200 shadow-md p-4 rounded-lg cursor-default overflow-y-auto">
       {typeof content === 'string' ? (
         <H1>
           Domain name is not registered or there was a problem fetching the
