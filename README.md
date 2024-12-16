@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+## Domain Lookup Tool  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Nickslabcode/domain-info-lookup)
+[![Website](https://img.shields.io/badge/website-live-green)](https://domain-lookup.your-website.com)
 
-Currently, two official plugins are available:
+A production app to streamline domain and site information retrieval for hosting support professionals.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<!-- End of Section -->
 
-## Expanding the ESLint configuration
+## Tech Stack  
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Front-end**: React, TypeScript, Axios, HttpYac, TailwindCSS, DaisyUI.  
+- **Proxy**: Cloudflare Worker (TypeScript).  
+- **Back-end**: Express, AWS Lambda.  Check back-end repo [here](https://github.com/Nickslabcode/api-domain-lookup).  
 
-- Configure the top-level `parserOptions` property like this:
+- **Additional Features**:  
+  - GitHub Actions workflows for automated deployment & for semantic versioning for changelogs.  
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+<!-- End of Section -->
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Key Features  
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **WHOIS, SSL, and DNS Lookup**  
+  Retrieve essential domain information, including WHOIS records, SSL details, and DNS configurations in a single search.
+  ![Results view](https://domain-lookup.nikola-nenovski.info/images/results.png)  
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **CDN and WordPress Detection**  
+  Detect active CDN services by analyzing response headers and identify if a site is running WordPress.  
+
+- **Search History**  
+  Maintain a history of recent lookups for quick reference and repeated searches.  
+  ![Search History](https://domain-lookup.nikola-nenovski.info/images/search-history.gif)  
+
+- **Changelog Viewer**  
+  Access app version details and updates seamlessly by fetching the project's changelog from the GitHub API.
+  ![Changelog Viewer](https://domain-lookup.nikola-nenovski.info/images/changelog.png)  
+
+- **Shortcuts**  
+  Enhanced with shortcuts for a more efficient workflow.
+  ![Shortcuts](https://domain-lookup.nikola-nenovski.info/images/shortcuts.png)  
