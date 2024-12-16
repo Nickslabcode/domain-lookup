@@ -38,3 +38,5 @@ A production app to streamline domain and site information retrieval for hosting
 - **Shortcuts**  
   Enhanced with shortcuts for a more efficient workflow.
   ![Shortcuts](https://domain-lookup.nikola-nenovski.info/images/shortcuts.png)  
+
+<!-- End of Section -->
