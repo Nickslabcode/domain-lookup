@@ -29,7 +29,7 @@ A production app to streamline domain and site information retrieval for hosting
 
 - **Search History**  
   Maintain a history of recent lookups for quick reference and repeated searches.  
-  ![Search History](https://domain-lookup.nikola-nenovski.info/images/search-history.gif)  
+  ![Search History](https://domain-lookup.nikola-nenovski.info/images/search-history-2.gif)  
 
 - **Changelog Viewer**  
   Access app version details and updates seamlessly by fetching the project's changelog from the GitHub API.
