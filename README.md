@@ -25,7 +25,7 @@ A production app to streamline domain and site information retrieval for hosting
   ![Results view](https://domain-lookup.nikola-nenovski.info/images/results.png)  
 
 - **CDN and WordPress Detection**  
-  Detect active CDN services by analyzing response headers and identify if a site is running WordPress.  
+  Detect active CDN services by analyzing response headers and identify if a site is running WordPress (In progress).  
 
 - **Search History**  
   Maintain a history of recent lookups for quick reference and repeated searches.  
