@@ -6,7 +6,7 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
   content,
 }) => {
   return (
-    <div className="flex lg:h-full flex-col break-words border border-base-200 shadow-md p-4 rounded-lg cursor-default overflow-y-auto">
+    <div className="flex lg:h-full flex-col break-words shadow-md p-4 rounded-lg cursor-default overflow-y-auto border border-neutral">
       {typeof content === 'string' ? (
         <H1>
           Domain name is not registered or there was a problem fetching the
@@ -50,14 +50,14 @@ const WhoisTable: React.FC<{ content: Record<string, any> | string }> = ({
               </td>
             </tr>
             <tr className="hover">
-              <th>Status</th>
+              <th className="align-top">Status</th>
               <td>
                 {typeof content.result!.status === 'string' ? (
                   content.result!.status
                 ) : (
                   <ul>
                     {content.result!.status.map((row: string, idx: number) => (
-                      <li key={idx}>{row}</li>
+                      <li key={idx}>{row.substring(0, row.indexOf(' '))}</li>
                     ))}
                   </ul>
                 )}

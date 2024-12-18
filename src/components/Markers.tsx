@@ -1,7 +1,6 @@
 import { FaCheck } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
-import { FiExternalLink } from 'react-icons/fi';
 import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
 
@@ -20,12 +19,6 @@ const Markers: React.FC<MarkersPropsType> = ({
   dnssec,
   wwwSsl,
 }) => {
-  const [searchParams] = useSearchParams();
-  const wpCheckUrl = useMemo(
-    () => `https://${searchParams.get('domain')}/readme.html`,
-    [searchParams]
-  );
-
   return (
     <div className="mb-5 bg-base-200 py-2 px-4 rounded-lg text-secondary cursor-default">
       <ul className="flex gap-6 text-xs items-center">
@@ -105,16 +98,17 @@ const Markers: React.FC<MarkersPropsType> = ({
             </div>
           )}
         </li>
-        <li className="flex items-center">
+        <li className="flex gap-2">
           <h3 className="font-semibold">HAS WP</h3>
-          <a
-            href={wpCheckUrl}
-            className="btn btn-xs btn-link font-semibold hover:text-neutral-content gap-0.5"
-            target="_blank"
-          >
-            check
-            <FiExternalLink strokeWidth={3} />
-          </a>
+          {hasWp ? (
+            <div className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
+              <FaCheck size={8} />
+            </div>
+          ) : (
+            <div className="bg-error text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
+              <IoClose size={12} />
+            </div>
+          )}
         </li>
       </ul>
     </div>

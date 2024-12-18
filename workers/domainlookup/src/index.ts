@@ -1,3 +1,4 @@
+import { cdnCheck } from './handlers/cdnCheckHandler';
 import { fetchDnsData } from './handlers/dnsHandler';
 import { fetchSslData } from './handlers/sslHandler';
 import { fetchWhoisData } from './handlers/whoisHandler';
@@ -22,6 +23,8 @@ export default {
 				return fetchDnsData(request);
 			case '/wp-check':
 				return wpCheck(request);
+			case '/cdn-check':
+				return cdnCheck(request);
 			default:
 				return new Response('Not Found', { status: 404 });
 		}

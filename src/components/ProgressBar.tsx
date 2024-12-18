@@ -7,7 +7,7 @@ const ProgressBar: React.FC<{ progress: number }> = ({ progress }) => {
       <progress
         className="progress progress-primary w-56"
         value={progress}
-        max="3"
+        max="5"
       ></progress>
     </>
   );
