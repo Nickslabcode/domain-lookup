@@ -1,8 +1,6 @@
 import { FaCheck } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
-import { useSearchParams } from 'react-router-dom';
-import { useMemo } from 'react';
 
 interface MarkersPropsType {
   AAAA: DnsRecordAnswer[] | string | undefined;
