@@ -11,6 +11,7 @@ interface HistoryContextType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   history: any;
   historyPush: (newDomain: string) => void;
+  clearHistory: () => void;
   handleOpenCloseModal: (event: KeyboardEvent) => void;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -39,6 +40,10 @@ export const HistoryProvider: React.FC<{ children: ReactNode }> = ({
     setHistory([...history, { domain: newDomain, searchedOn: Date.now() }]);
   };
 
+  const clearHistory = () => {
+    setHistory([]);
+  };
+
   const handleOpenCloseModal = (event: KeyboardEvent) => {
     if (event.key === 'Escape') setIsModalOpen(prev => !prev);
   };
@@ -51,6 +56,7 @@ export const HistoryProvider: React.FC<{ children: ReactNode }> = ({
         isModalOpen,
         handleOpenCloseModal,
         setIsModalOpen,
+        clearHistory,
       }}
     >
       {children}
