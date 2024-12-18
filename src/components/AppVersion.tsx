@@ -40,18 +40,22 @@ const AppVersion = () => {
         </span>
       </div>
       <dialog id="my_modal_2" className="modal backdrop-blur-sm" ref={modalRef}>
-        <div className="modal-box text-start h-1/2 max-w-2xl">
-          {changelog.map((data: Record<string, string>) => (
-            <MarkdownRenderedComponent
-              content={data.body}
-              key={data.tag_name}
-            />
-          ))}
-          <form method="dialog">
-            <button className=" btn-sm btn-circle absolute right-2 top-2 hover:text-secondary-content">
-              <IoCloseSharp />
-            </button>
-          </form>
+        <div className="modal-box flex flex-col gap-4 text-start h-1/2 max-w-2xl">
+          <div className="text-end">
+            <form method="dialog">
+              <button className="hover:text-secondary-content">
+                <IoCloseSharp />
+              </button>
+            </form>
+          </div>
+          <div className="h-full overflow-y-scroll">
+            {changelog.map((data: Record<string, string>) => (
+              <MarkdownRenderedComponent
+                content={data.body}
+                key={data.tag_name}
+              />
+            ))}
+          </div>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
