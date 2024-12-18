@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useHistoryModal } from '../providers/HistoryProvider';
 import { HistoryObject } from '../interfaces/HistoryObject';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import ShortKeys from './ShortKeys';
+import { Shortcut } from '../enums/shortcut.enum';
 
 const HistoryModal = () => {
   const { setIsModalOpen, isModalOpen, history, historyPush } =
@@ -58,7 +60,7 @@ const HistoryModal = () => {
     <dialog id="history_modal" className="modal backdrop-blur-sm">
       <div className="modal-box">
         <label
-          className="flex items-center input input-sm input-bordered w-full mb-4"
+          className="flex items-center input input-sm input-bordered w-full"
           style={{ outline: 'none', boxShadow: 'none' }}
         >
           <input
@@ -71,6 +73,7 @@ const HistoryModal = () => {
           />
           <kbd className="kbd kbd-sm text-xs py-0.5 px-1">t</kbd>
         </label>
+        <ShortKeys keys={[Shortcut.T, Shortcut.ESCAPE]} className="py-4" />
         <div className="h-72 overflow-y-scroll">
           <table className="table table-xs table-pin-rows">
             <thead className="cursor-default">
@@ -116,6 +119,9 @@ const HistoryModal = () => {
           </table>
         </div>
       </div>
+      <form method="dialog" className="modal-backdrop">
+        <button onClick={() => setIsModalOpen(false)}>close</button>
+      </form>
     </dialog>
   );
 };
