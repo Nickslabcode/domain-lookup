@@ -1,8 +1,17 @@
 import React, { ReactNode } from 'react';
+import { cn } from '../helpers/cn.helper';
 
-const ViewContainer: React.FC<{ children: ReactNode }> = ({ children }) => {
+const ViewContainer: React.FC<{ children: ReactNode; className?: string }> = ({
+  children,
+  className,
+}) => {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center gap-4 mb-4">
+    <div
+      className={cn(
+        'flex flex-col flex-1 items-center justify-center gap-4 mb-4',
+        className
+      )}
+    >
       {children}
     </div>
   );
