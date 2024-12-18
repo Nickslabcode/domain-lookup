@@ -24,6 +24,9 @@ GET http://localhost:8787/wp-check?domain=mrtnbdrv.com
 GET http://localhost:8787/whois?domain=nikola-nenovski.info
 
 ###
+GET http://localhost:8787/cdn-check?domain=cexposurefilms.com
+
+###
 
 GET https://api.github.com/repos/Nickslabcode/domain-info-lookup/releases
 
@@ -34,3 +37,7 @@ GET {{ WORKER_API_URL }}/wp-check?domain=mrtnbdrv.com
 ###
 # @import ./variables.http
 GET {{ WORKER_API_URL }}/wp-check?domain=nikola-nenovski.info
+
+###
+
+GET https://o2h83alxd2.execute-api.eu-central-1.amazonaws.com/api/v1/wp-check?domain=cexposurefilms.com

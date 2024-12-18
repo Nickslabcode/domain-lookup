@@ -4,7 +4,7 @@ import { H1 } from '../hoc/H1';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SslTable: React.FC<{ content: Record<string, any> }> = ({ content }) => {
   return (
-    <div className="flex h-full max-h-screen flex-col break-words border border-base-200 shadow-md p-4 rounded-lg cursor-default overflow-y-auto">
+    <div className="flex h-full max-h-screen flex-col break-words shadow-md p-4 rounded-lg cursor-default overflow-y-auto border border-neutral">
       {!content ? (
         <H1>No SSL certificate found.</H1>
       ) : (
