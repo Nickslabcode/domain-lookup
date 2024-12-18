@@ -4,9 +4,10 @@ import { HistoryObject } from '../interfaces/HistoryObject';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ShortKeys from './ShortKeys';
 import { Shortcut } from '../enums/shortcut.enum';
+import { FaTrash } from 'react-icons/fa';
 
 const HistoryModal = () => {
-  const { setIsModalOpen, isModalOpen, history, historyPush } =
+  const { setIsModalOpen, isModalOpen, history, historyPush, clearHistory } =
     useHistoryModal();
   const historyInputRef = useRef<HTMLInputElement | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -58,7 +59,7 @@ const HistoryModal = () => {
 
   return (
     <dialog id="history_modal" className="modal backdrop-blur-sm">
-      <div className="modal-box">
+      <div className="modal-box flex flex-col gap-4">
         <label
           className="flex items-center input input-sm input-bordered w-full"
           style={{ outline: 'none', boxShadow: 'none' }}
@@ -73,7 +74,7 @@ const HistoryModal = () => {
           />
           <kbd className="kbd kbd-sm text-xs py-0.5 px-1">t</kbd>
         </label>
-        <ShortKeys keys={[Shortcut.T, Shortcut.ESCAPE]} className="py-4" />
+        <ShortKeys keys={[Shortcut.T, Shortcut.ESCAPE]} />
         <div className="h-72 overflow-y-scroll">
           <table className="table table-xs table-pin-rows">
             <thead className="cursor-default">
@@ -117,6 +118,18 @@ const HistoryModal = () => {
               )}
             </tbody>
           </table>
+        </div>
+        <div className="text-start">
+          <button
+            className="btn btn-outline btn-error btn-sm"
+            onClick={() => {
+              localStorage.removeItem('history');
+              clearHistory();
+            }}
+          >
+            <FaTrash />
+            history
+          </button>
         </div>
       </div>
       <form method="dialog" className="modal-backdrop">

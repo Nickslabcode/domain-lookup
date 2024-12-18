@@ -3,7 +3,7 @@ import { IoReturnDownBackSharp } from 'react-icons/io5';
 import { Shortcut } from '../enums/shortcut.enum';
 import { cn } from '../helpers/cn.helper';
 
-const ShortKeys: React.FC<{ keys: Shortcut[]; className: string }> = ({
+const ShortKeys: React.FC<{ keys: Shortcut[]; className?: string }> = ({
   keys,
   className,
 }) => {
