@@ -98,6 +98,7 @@ const Results = () => {
           hasWwwRecord={hasWwwRecord}
           dnssec={whoIsData?.result?.dnssec}
           wwwSsl={wwwSsl}
+          domainStatusCodes={whoIsData?.result?.status}
         />
         <div className="w-full">
           <H1 className="xl:text-start mb-4">DNS Info</H1>
