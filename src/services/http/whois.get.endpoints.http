@@ -12,3 +12,11 @@ GET {{WHOIS_API_URL}}
   ?domain={{MISSPELLED_DOMAIN}}
   apikey:{{WHOIS_API_KEY}}
 // WhoIS request with a misspelled domain name
+
+
+###
+# @import ./variables.http
+
+GET {{WHOIS_API_URL}}
+  ?domain=nikolanenovski.com
+  apikey:{{WHOIS_API_KEY}}
