@@ -1,5 +1,4 @@
 import React from 'react';
-import { H1 } from '../hoc/H1';
 
 const SslTable: React.FC<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +12,9 @@ const SslTable: React.FC<{
           <span className="loading loading-spinner text-primary"></span>
         </div>
       ) : !content ? (
-        <H1>No SSL certificate found.</H1>
+        <div className="flex justify-center items-center h-full">
+          <p>No SSL certificate found.</p>
+        </div>
       ) : (
         <table className="table table-xs">
           <tbody>

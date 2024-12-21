@@ -1,6 +1,5 @@
 import React from 'react';
 import { getDays } from '../helpers/getDays';
-
 const WhoisTable: React.FC<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: Record<string, any> | undefined;
@@ -11,6 +10,10 @@ const WhoisTable: React.FC<{
       {loading ? (
         <div className="flex justify-center items-center h-full">
           <span className="loading loading-spinner text-primary"></span>
+        </div>
+      ) : !content ? (
+        <div className="flex justify-center items-center h-full">
+          <p>Domain is not registered.</p>
         </div>
       ) : (
         <table className="table table-xs">
@@ -56,7 +59,12 @@ const WhoisTable: React.FC<{
               <th className="align-top">Status</th>
               <td>
                 {typeof content?.result!.status === 'string' ? (
-                  content?.result!.status
+                  <p>
+                    {content?.result!.status.substring(
+                      0,
+                      content?.result!.status.indexOf(' ')
+                    )}
+                  </p>
                 ) : (
                   <ul>
                     {content?.result!.status.map((row: string, idx: number) => (
