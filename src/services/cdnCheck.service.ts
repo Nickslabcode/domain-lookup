@@ -11,8 +11,7 @@ export const isCdnActive = async (domain: string) => {
       }
     );
 
-    console.log(response);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error(error);
   }

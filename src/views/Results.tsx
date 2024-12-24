@@ -16,6 +16,7 @@ import WhoisTable from '../components/WhoisTable';
 import { H1 } from '../hoc/H1';
 import Markers from '../components/Markers';
 import { isWordpressInstalled } from '../services/wpCheck.service';
+import { isCdnActive } from '../services/cdnCheck.service';
 
 interface WhoIsData {
   result?: Record<string, any>;
@@ -29,6 +30,7 @@ const Results = () => {
   const [dnsData, setDnsData] =
     useState<Record<DnsType, string | DnsRecordAnswer[]>>();
   const [hasWp, setHasWp] = useState<boolean>(false);
+  const [cdnInfo, setCdnInfo] = useState<string[]>([]);
   const [hasWwwRecord, setHasWwwRecord] = useState<boolean>(false);
   const wwwSsl = useMemo(() => {
     const domain = searchParams.get('domain');
@@ -43,6 +45,8 @@ const Results = () => {
   const [isWhoIsLoading, setIsWhoisLoading] = useState<boolean>(false);
   const [isDnsLoading, setIsDnsLoading] = useState<boolean>(false);
   const [isSslLoading, setIsSslLoading] = useState<boolean>(false);
+  const [isWpCheckLoading, setIsWpCheckLoading] = useState<boolean>(false);
+  const [isCdnCheckLoading, setIsCdnCheckLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const domain = searchParams.get('domain');
@@ -51,6 +55,8 @@ const Results = () => {
     setIsWhoisLoading(true);
     setIsSslLoading(true);
     setIsDnsLoading(true);
+    setIsWpCheckLoading(true);
+    setIsCdnCheckLoading(true);
 
     try {
       const fetchData = async () => {
@@ -73,6 +79,11 @@ const Results = () => {
           }),
           isWordpressInstalled(domain).then(data => {
             setHasWp(data.isInstalled);
+            setIsWpCheckLoading(false);
+          }),
+          isCdnActive(domain).then(data => {
+            setCdnInfo(Object.keys(data));
+            setIsCdnCheckLoading(false);
           }),
         ];
 
@@ -96,7 +107,10 @@ const Results = () => {
           isWhoisLoading={isWhoIsLoading}
           isDnsLoading={isDnsLoading}
           isSslLoading={isSslLoading}
+          isCdnCheckLoading={isCdnCheckLoading}
+          isWpCheckLoading={isWpCheckLoading}
           AAAA={dnsData?.AAAA}
+          cdnInfo={cdnInfo}
           hasWp={hasWp}
           hasWwwRecord={hasWwwRecord}
           dnssec={whoIsData?.result?.dnssec}

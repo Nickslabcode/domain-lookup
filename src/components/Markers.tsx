@@ -11,10 +11,13 @@ interface MarkersPropsType {
   hasWwwRecord: boolean;
   dnssec: string | undefined;
   wwwSsl: boolean;
+  cdnInfo: string[];
   domainStatusCodes: string[] | string;
   isWhoisLoading: boolean;
   isDnsLoading: boolean;
   isSslLoading: boolean;
+  isCdnCheckLoading: boolean;
+  isWpCheckLoading: boolean;
 }
 
 const Markers: React.FC<MarkersPropsType> = ({
@@ -23,10 +26,13 @@ const Markers: React.FC<MarkersPropsType> = ({
   hasWwwRecord,
   dnssec,
   wwwSsl,
+  cdnInfo,
   domainStatusCodes,
   isWhoisLoading,
   isDnsLoading,
   isSslLoading,
+  isCdnCheckLoading,
+  isWpCheckLoading,
 }) => {
   const transferCheck = useMemo(() => {
     if (!domainStatusCodes) return;
@@ -150,13 +156,23 @@ const Markers: React.FC<MarkersPropsType> = ({
         </li>
         <VerticalSeparator />
         <li className="flex gap-2">
-          <h3 className="font-semibold">HAS CDN</h3>
-          {!domainStatus ? (
-            <NotAvailableMarker />
+          <h3 className="font-semibold">CDN</h3>
+          {cdnInfo.length === 0 ? (
+            <NotAvailableMarker loading={isCdnCheckLoading} />
           ) : (
-            <span className="bg-success text-neutral w-4 h-4 rounded-full font-semibold flex justify-center items-center">
-              <FaCheck size={8} />
-            </span>
+            <div
+              className={`${
+                cdnInfo.length === 1 ? 'bg-success' : 'bg-warning'
+              } text-neutral font-semibold text-xs px-1 rounded`}
+            >
+              {cdnInfo.length === 1 ? (
+                <span>{cdnInfo[0].toLowerCase()}</span>
+              ) : (
+                <span className="tooltip" data-tip={cdnInfo.join(', ')}>
+                  multiple
+                </span>
+              )}
+            </div>
           )}
         </li>
         <li className="flex gap-2">
@@ -175,8 +191,8 @@ const Markers: React.FC<MarkersPropsType> = ({
         </li>
         <li className="flex gap-2">
           <h3 className="font-semibold">HAS WP</h3>
-          {!domainStatus ? (
-            <NotAvailableMarker />
+          {!hasWp ? (
+            <NotAvailableMarker loading={isWpCheckLoading} />
           ) : (
             <span
               className={`${
