@@ -78,7 +78,7 @@ const Results = () => {
             setHasWwwRecord(answer);
           }),
           isWordpressInstalled(domain).then(data => {
-            setHasWp(data.isInstalled);
+            setHasWp(data.wordpressInstalled);
             setIsWpCheckLoading(false);
           }),
           isCdnActive(domain).then(data => {
