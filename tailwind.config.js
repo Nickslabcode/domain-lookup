@@ -8,6 +8,7 @@ export default {
   },
   daisyui: {
     themes: [
+      "dark",
       {
         serikaDark: {
           primary: '#e2b714',

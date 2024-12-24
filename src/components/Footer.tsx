@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className="mt-10">
       <ShortKeys keys={Object.values(Shortcut)} />
-      <div className="flex items-center text-sm justify-around text-secondary">
+      <div className="flex items-center text-sm justify-around text-base-content">
         <p>© 2024 Nikola Nenovski. All right reserved.</p>
         <div className="flex items-center gap-2 cursor-default">
           <AppVersion />

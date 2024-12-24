@@ -3,6 +3,7 @@ import { IoClose } from 'react-icons/io5';
 import { DnsRecordAnswer } from '../types/DnsRecordAnswer';
 import { useMemo } from 'react';
 import NotAvailableMarker from './NotAvailableMarker';
+import VerticalSeparator from './VerticalSeparator';
 
 interface MarkersPropsType {
   AAAA: DnsRecordAnswer[] | string | undefined;
@@ -48,7 +49,7 @@ const Markers: React.FC<MarkersPropsType> = ({
   }, [domainStatusCodes]);
 
   return (
-    <div className="mb-5 bg-base-200 py-2 px-4 rounded-lg text-secondary cursor-default">
+    <div className="mb-5 bg-base-200 py-2 px-4 rounded-lg text-neutral-content cursor-default">
       <ul className="flex gap-6 text-xs items-center">
         <li className="flex items-center gap-2">
           <h3 className="font-semibold">NO AAAA</h3>
@@ -82,7 +83,7 @@ const Markers: React.FC<MarkersPropsType> = ({
             </span>
           )}
         </li>
-        <div className="bg-secondary w-0.5 h-3 rounded-full"></div>
+        <VerticalSeparator />
         <li className="flex items-center gap-2">
           <h3 className="font-semibold">DNSSEC</h3>
           {!dnssec ? (
@@ -143,7 +144,7 @@ const Markers: React.FC<MarkersPropsType> = ({
             </span>
           )}
         </li>
-        <div className="bg-secondary w-0.5 h-3 rounded-full"></div>
+        <VerticalSeparator />
         <li className="flex gap-2">
           <h3 className="font-semibold">HAS CDN</h3>
           {!domainStatus ? (
