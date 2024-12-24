@@ -11,7 +11,7 @@ export const isWordpressInstalled = async (domain: string) => {
       }
     );
 
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error(error);
   }

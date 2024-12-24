@@ -191,7 +191,7 @@ const Markers: React.FC<MarkersPropsType> = ({
         </li>
         <li className="flex gap-2">
           <h3 className="font-semibold">HAS WP</h3>
-          {!hasWp ? (
+          {isWpCheckLoading ? (
             <NotAvailableMarker loading={isWpCheckLoading} />
           ) : (
             <span
