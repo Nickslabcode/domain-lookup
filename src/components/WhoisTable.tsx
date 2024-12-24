@@ -13,7 +13,7 @@ const WhoisTable: React.FC<{
         </div>
       ) : !content ? (
         <div className="flex justify-center items-center h-full">
-          <p>Domain is not registered.</p>
+          <p>Data could not be fetched.</p>
         </div>
       ) : (
         <table className="table table-xs">
