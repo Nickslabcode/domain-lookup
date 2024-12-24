@@ -1,4 +1,4 @@
-import { Shortcut } from '../enums/shortcut.enum';
+import { Shortcut } from '../enums/Shortcut.enum';
 import AppVersion from './AppVersion';
 import ShortKeys from './ShortKeys';
 import ThemeController from './ThemeController';
