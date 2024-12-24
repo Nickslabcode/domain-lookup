@@ -3,4 +3,5 @@ export enum Theme {
   SOLARIZED_LIGHT = 'solarizedLight',
   SERIKA_DARK = 'serikaDark',
   SERIKA_LIGHT = 'serikaLight',
+  DEFAULT_DARK = 'dark',
 }

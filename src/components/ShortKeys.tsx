@@ -10,7 +10,7 @@ const ShortKeys: React.FC<{ keys: Shortcut[]; className?: string }> = ({
   return (
     <div
       className={cn(
-        'flex gap-5 items-center justify-center text-secondary text-xs cursor-default',
+        'flex gap-5 items-center justify-center text-base-content text-xs cursor-default',
         className
       )}
     >

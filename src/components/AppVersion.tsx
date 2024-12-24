@@ -30,7 +30,7 @@ const AppVersion = () => {
   return (
     <>
       <div
-        className="flex items-center gap-1 mr-3 cursor-pointer hover:text-secondary-content"
+        className="flex items-center gap-1 mr-3 cursor-pointer hover:text-neutral-content"
         onClick={handleClick}
       >
         <IoGitBranch size={18} />
