@@ -93,6 +93,9 @@ const Results = () => {
           Looking up {searchParams.get('domain')}
         </H1>
         <Markers
+          isWhoisLoading={isWhoIsLoading}
+          isDnsLoading={isDnsLoading}
+          isSslLoading={isSslLoading}
           AAAA={dnsData?.AAAA}
           hasWp={hasWp}
           hasWwwRecord={hasWwwRecord}

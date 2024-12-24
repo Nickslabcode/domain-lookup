@@ -12,6 +12,9 @@ interface MarkersPropsType {
   dnssec: string | undefined;
   wwwSsl: boolean;
   domainStatusCodes: string[] | string;
+  isWhoisLoading: boolean;
+  isDnsLoading: boolean;
+  isSslLoading: boolean;
 }
 
 const Markers: React.FC<MarkersPropsType> = ({
@@ -21,6 +24,9 @@ const Markers: React.FC<MarkersPropsType> = ({
   dnssec,
   wwwSsl,
   domainStatusCodes,
+  isWhoisLoading,
+  isDnsLoading,
+  isSslLoading,
 }) => {
   const transferCheck = useMemo(() => {
     if (!domainStatusCodes) return;
@@ -53,8 +59,8 @@ const Markers: React.FC<MarkersPropsType> = ({
       <ul className="flex gap-6 text-xs items-center">
         <li className="flex items-center gap-2">
           <h3 className="font-semibold">NO AAAA</h3>
-          {!domainStatus ? (
-            <NotAvailableMarker />
+          {!AAAA ? (
+            <NotAvailableMarker loading={isDnsLoading} />
           ) : (
             <span
               className={`${
@@ -71,8 +77,8 @@ const Markers: React.FC<MarkersPropsType> = ({
         </li>
         <li className="flex items-center gap-2">
           <h3 className="font-semibold">WWW DNS</h3>
-          {!domainStatus ? (
-            <NotAvailableMarker />
+          {!hasWwwRecord ? (
+            <NotAvailableMarker loading={isDnsLoading} />
           ) : (
             <span
               className={`${
@@ -87,7 +93,7 @@ const Markers: React.FC<MarkersPropsType> = ({
         <li className="flex items-center gap-2">
           <h3 className="font-semibold">DNSSEC</h3>
           {!dnssec ? (
-            <NotAvailableMarker />
+            <NotAvailableMarker loading={isWhoisLoading} />
           ) : dnssec === 'unsigned' ? (
             <span className="bg-success text-neutral font-semibold text-xs px-1 rounded">
               unsigned
@@ -102,9 +108,7 @@ const Markers: React.FC<MarkersPropsType> = ({
           <h3 className="font-semibold">STATUS</h3>
           <div className="dropdown dropdown-hover">
             {!domainStatus ? (
-              <span className="bg-secondary text-neutral font-semibold text-xs px-1 rounded">
-                N/A
-              </span>
+              <NotAvailableMarker loading={isWhoisLoading} />
             ) : (
               <span
                 tabIndex={0}
@@ -129,7 +133,7 @@ const Markers: React.FC<MarkersPropsType> = ({
         <li className="flex gap-2">
           <h3 className="font-semibold">TRANSFER</h3>
           {!domainStatus ? (
-            <NotAvailableMarker />
+            <NotAvailableMarker loading={isWhoisLoading} />
           ) : (
             <span
               className={`${
@@ -157,8 +161,8 @@ const Markers: React.FC<MarkersPropsType> = ({
         </li>
         <li className="flex gap-2">
           <h3 className="font-semibold">WWW SSL</h3>
-          {!domainStatus ? (
-            <NotAvailableMarker />
+          {!wwwSsl ? (
+            <NotAvailableMarker loading={isSslLoading} />
           ) : (
             <span
               className={`${
