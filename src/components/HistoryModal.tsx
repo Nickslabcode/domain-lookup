@@ -3,7 +3,7 @@ import { useHistoryModal } from '../providers/HistoryProvider';
 import { HistoryObject } from '../interfaces/HistoryObject';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ShortKeys from './ShortKeys';
-import { Shortcut } from '../enums/shortcut.enum';
+import { Shortcut } from '../enums/Shortcut.enum';
 import { FaTrash } from 'react-icons/fa';
 
 const HistoryModal = () => {

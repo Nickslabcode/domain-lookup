@@ -1,6 +1,6 @@
 import React from 'react';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
-import { Shortcut } from '../enums/shortcut.enum';
+import { Shortcut } from '../enums/Shortcut.enum';
 import { cn } from '../helpers/cn.helper';
 
 const ShortKeys: React.FC<{ keys: Shortcut[]; className?: string }> = ({
