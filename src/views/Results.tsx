@@ -66,6 +66,7 @@ const Results = () => {
             setIsSslLoading(false);
           }),
           getDomainInfo(domain).then(data => {
+            console.log(data);
             setWhoIsData(data);
             setIsWhoisLoading(false);
           }),

@@ -1,10 +1,47 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { getDays } from '../helpers/getDays';
 const WhoisTable: React.FC<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: Record<string, any> | undefined;
   loading: boolean;
 }> = ({ content, loading }) => {
+  const whoisRows = useMemo(() => {
+    if (!content?.result) return [];
+
+    const {
+      registrar,
+      name_servers,
+      creation_date,
+      expiration_date,
+      updated_date,
+      status,
+      dnssec,
+    } = content.result;
+
+    const transformedWhoisObj = {
+      Registrar: registrar,
+      Name_Servers: Array.isArray(name_servers)
+        ? name_servers
+        : name_servers.substring(0, name_servers.indexOf(' ')),
+      Registered_On: new Date(creation_date).toLocaleDateString(),
+      Expires_On: `${new Date(expiration_date).toLocaleDateString()} (${getDays(
+        expiration_date
+      )} days)`,
+      Last_updated_On: new Date(updated_date).toLocaleDateString(),
+      Status: Array.isArray(status)
+        ? status.map((s: string) => s.substring(0, s.indexOf(' ')))
+        : status.substring(0, status.indexOf(' ')),
+      DNSSEC: dnssec,
+    };
+
+    return Object.entries(transformedWhoisObj).map(
+      ([key, value]: [string, string | string[]]) => ({
+        label: key.replace(/_/g, ' '),
+        value,
+      })
+    );
+  }, [content]);
+
   return (
     <div className="flex h-full lg:min-h-80 lg:max-h-96 flex-col break-words shadow-md p-4 rounded-lg cursor-default overflow-y-auto border border-neutral">
       {loading ? (
@@ -13,71 +50,27 @@ const WhoisTable: React.FC<{
         </div>
       ) : !content ? (
         <div className="flex justify-center items-center h-full">
-          <p>Data could not be fetched.</p>
+          <p>Whois data could not be fetched.</p>
         </div>
       ) : (
         <table className="table table-xs">
           <tbody>
-            <tr className="hover">
-              <th className="align-top">Registrar</th>
-              <td>{content?.result!.registrar}</td>
-            </tr>
-            <tr className="hover">
-              <th className="align-top">Name Servers</th>
-              <td>
-                <ul>
-                  {content?.result!.name_servers.map(
-                    (ns: string, idx: number) => (
-                      <li key={idx}>{ns}</li>
-                    )
+            {whoisRows.map(row => (
+              <tr className="hover">
+                <th className="align-top">{row.label}</th>
+                <td>
+                  {Array.isArray(row.value) ? (
+                    <ul>
+                      {row.value.map((r: string, idx: number) => (
+                        <li key={`${idx}-${r}`}>{r}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    row.value
                   )}
-                </ul>
-              </td>
-            </tr>
-            <tr className="hover">
-              <th className="align-top">Registered On</th>
-              <td>
-                {new Date(content?.result!.creation_date).toLocaleDateString()}
-              </td>
-            </tr>
-            <tr className="hover">
-              <th className="align-top">Expires On</th>
-              <td>
-                {new Date(
-                  content?.result!.expiration_date
-                ).toLocaleDateString()}{' '}
-                ({getDays(content?.result!.expiration_date)} days)
-              </td>
-            </tr>
-            <tr className="hover">
-              <th className="align-top">Last updated On</th>
-              <td>
-                {new Date(content?.result!.updated_date).toLocaleDateString()}
-              </td>
-            </tr>
-            <tr className="hover">
-              <th className="align-top">Status</th>
-              <td>
-                {typeof content?.result!.status === 'string' ? (
-                  <p>
-                    {content?.result!.status.substring(
-                      0,
-                      content?.result!.status.indexOf(' ')
-                    )}
-                  </p>
-                ) : (
-                  <ul>
-                    {content?.result!.status.map((row: string, idx: number) => (
-                      <li key={idx}>{row.substring(0, row.indexOf(' '))}</li>
-                    ))}
-                  </ul>
-                )}
-              </td>
-            </tr>
-            <tr className="hover">
-              <th className="align-top">DNSSEC</th>
-              <td>{content?.result!.dnssec}</td>
-            </tr>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
