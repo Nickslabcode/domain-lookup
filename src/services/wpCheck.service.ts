@@ -14,5 +14,6 @@ export const isWordpressInstalled = async (domain: string) => {
     return response.data.data;
   } catch (error) {
     console.error(error);
+    return { wordpressInstalled: false };
   }
 };

@@ -18,5 +18,5 @@ GET {{WHOIS_API_URL}}
 # @import ./variables.http
 
 GET {{WHOIS_API_URL}}
-  ?domain=nikolanenovski.com
+  ?domain=random.co.uk
   apikey:{{WHOIS_API_KEY}}
