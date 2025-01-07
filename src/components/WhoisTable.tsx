@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { getDays } from '../helpers/getDays';
+import Loading from './Loading';
 const WhoisTable: React.FC<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: Record<string, any> | undefined;
@@ -45,9 +46,7 @@ const WhoisTable: React.FC<{
   return (
     <div className="flex h-full lg:min-h-80 lg:max-h-96 flex-col break-words shadow-md p-4 rounded-lg cursor-default overflow-y-auto border border-neutral">
       {loading ? (
-        <div className="flex justify-center items-center h-full">
-          <span className="loading loading-spinner text-primary"></span>
-        </div>
+        <Loading />
       ) : !content ? (
         <div className="flex justify-center items-center h-full">
           <p>Whois data could not be fetched.</p>
