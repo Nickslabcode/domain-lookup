@@ -24,9 +24,9 @@ const WhoisTable: React.FC<{
         ? name_servers
         : name_servers.substring(0, name_servers.indexOf(' ')),
       Registered_On: new Date(creation_date).toLocaleDateString(),
-      Expires_On: `${new Date(expiration_date).toLocaleDateString()} (${getDays(
+      Expires_On: `${new Date(
         expiration_date
-      )} days)`,
+      ).toLocaleDateString()} (in ${getDays(expiration_date)} days)`,
       Last_updated_On: new Date(updated_date).toLocaleDateString(),
       Status: Array.isArray(status)
         ? status.map((s: string) => s.substring(0, s.indexOf(' ')))
@@ -55,18 +55,18 @@ const WhoisTable: React.FC<{
       ) : (
         <table className="table table-xs">
           <tbody>
-            {whoisRows.map(row => (
-              <tr className="hover">
-                <th className="align-top">{row.label}</th>
+            {whoisRows.map(({ label, value }) => (
+              <tr className="hover" key={label}>
+                <th className="align-top">{label}</th>
                 <td>
-                  {Array.isArray(row.value) ? (
+                  {Array.isArray(value) ? (
                     <ul>
-                      {row.value.map((r: string, idx: number) => (
+                      {value.map((r: string, idx: number) => (
                         <li key={`${idx}-${r}`}>{r}</li>
                       ))}
                     </ul>
                   ) : (
-                    row.value
+                    value
                   )}
                 </td>
               </tr>
