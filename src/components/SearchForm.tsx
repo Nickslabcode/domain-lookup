@@ -30,6 +30,7 @@ const SearchForm = () => {
     historyPush(searchQuery);
     setSearchParams({ domain: searchQuery });
     navigate(`/results?domain=${encodeURIComponent(searchQuery)}`);
+    setTimeout(() => window.scroll(0, 0), 50);
   };
 
   const handleKeyUp = (event: KeyboardEvent): void => {
