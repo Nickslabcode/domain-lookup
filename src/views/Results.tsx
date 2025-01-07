@@ -100,8 +100,8 @@ const Results = () => {
   return (
     <>
       <Navbar />
-      <ViewContainer className="p-4">
-        <H1 className="mb-5 text-2xl">
+      <ViewContainer className="p-4 mt-10">
+        <H1 className="my-5 text-2xl">
           Looking up {searchParams.get('domain')}
         </H1>
         <Markers
