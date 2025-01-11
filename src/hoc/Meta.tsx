@@ -1,15 +1,38 @@
 import { Helmet } from 'react-helmet';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { BASE_URL, DESCRIPTION, TYPE } from '../constants/meta';
+import { useEffect, useState } from 'react';
 
-const Meta = () => {
+const spinnerFrames = ['◐', '◓', '◑', '◒'];
+
+const Meta = ({ loading }: { loading?: boolean }) => {
   const [searchParams, _setSearchParams] = useSearchParams();
-  const location = useLocation();
+  const { pathname, search } = useLocation();
+  const [currentSpinnerFrame, setCurrentSpinnerFrame] = useState(
+    () => spinnerFrames[0]
+  );
 
   const domain = searchParams.get('domain');
 
-  const title = `${domain ? `${domain} - ` : ''}DomainLookup`;
-  const currentUrl = BASE_URL + location.pathname + location.search;
+  const title = `${loading ? currentSpinnerFrame + ' - ' : ''}  ${
+    domain ? `${domain} - ` : ''
+  }DomainLookup`;
+  const currentUrl = BASE_URL + pathname + search;
+
+  useEffect(() => {
+    if (!loading) return;
+    const spinnerInterval = setInterval(() => {
+      setCurrentSpinnerFrame(prev => {
+        const nextIndex =
+          (spinnerFrames.indexOf(prev) + 1) % spinnerFrames.length;
+
+        console.log(nextIndex);
+        return spinnerFrames[nextIndex];
+      });
+    }, 200);
+
+    return () => clearInterval(spinnerInterval);
+  }, [loading]);
 
   return (
     <Helmet>

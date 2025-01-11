@@ -4,6 +4,7 @@ import SearchForm from '../components/SearchForm';
 import Logo from '../components/Logo';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import Meta from '../hoc/Meta';
 
 const Home = () => {
   const [_searchParams, setSearchParams] = useSearchParams();
@@ -14,6 +15,7 @@ const Home = () => {
 
   return (
     <>
+      <Meta />
       <ViewContainer>
         <Logo />
         <SearchForm />
