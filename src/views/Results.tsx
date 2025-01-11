@@ -17,6 +17,7 @@ import { H1 } from '../hoc/H1';
 import Markers from '../components/Markers';
 import { isWordpressInstalled } from '../services/wpCheck.service';
 import { isCdnActive } from '../services/cdnCheck.service';
+import Meta from '../hoc/Meta';
 
 interface WhoIsData {
   result?: Record<string, any>;
@@ -42,6 +43,7 @@ const Results = () => {
     );
   }, [sslData, searchParams]);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isWhoIsLoading, setIsWhoisLoading] = useState<boolean>(false);
   const [isDnsLoading, setIsDnsLoading] = useState<boolean>(false);
   const [isSslLoading, setIsSslLoading] = useState<boolean>(false);
@@ -51,7 +53,7 @@ const Results = () => {
   useEffect(() => {
     const domain = searchParams.get('domain');
     if (!domain) return;
-
+    setIsLoading(true);
     setIsWhoisLoading(true);
     setIsSslLoading(true);
     setIsDnsLoading(true);
@@ -89,6 +91,7 @@ const Results = () => {
         ];
 
         await Promise.all(tasks);
+        setIsLoading(false);
       };
 
       fetchData();
@@ -99,6 +102,7 @@ const Results = () => {
 
   return (
     <>
+      <Meta loading={isLoading} />
       <Navbar />
       <ViewContainer className="p-4 mt-10">
         <H1 className="my-5 text-2xl">
