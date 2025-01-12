@@ -1,4 +1,4 @@
-import { cn } from '../helpers/cn.helper';
+import { cn } from '../helpers/className/cn.helper';
 
 const NotAvailableMarker: React.FC<{
   className?: string;

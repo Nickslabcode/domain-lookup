@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { getDays } from '../helpers/getDays';
+import { getDays } from '../helpers/date/getDays';
 import Loading from './Loading';
 const WhoisTable: React.FC<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

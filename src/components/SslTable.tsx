@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { getDays } from '../helpers/getDays';
+import { getDays } from '../helpers/date/getDays';
 import { SslStatus } from '../enums/SslStatus.enum';
 import Loading from './Loading';
 
