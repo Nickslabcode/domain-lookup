@@ -40,14 +40,14 @@ const SearchForm = () => {
   };
 
   return (
-    <form className="flex gap-2 w-1/2" onSubmit={handleSubmit}>
+    <form className="flex gap-2 w-[30rem]" onSubmit={handleSubmit}>
       <label
         className="flex items-center input input-sm input-bordered w-full"
         style={{ outline: 'none', boxShadow: 'none' }}
       >
         <input
           type="text"
-          className="grow placeholder:text-xs"
+          className="grow placeholder:text-xs "
           placeholder="Type a domain..."
           autoFocus
           value={searchQuery}
