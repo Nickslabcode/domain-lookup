@@ -17,7 +17,7 @@ import { H1 } from '../hoc/H1';
 import Markers from '../components/Markers';
 import { isWordpressInstalled } from '../services/wpCheck.service';
 import { isCdnActive } from '../services/cdnCheck.service';
-import Meta from '../hoc/Meta';
+import Meta from '../components/Meta';
 
 interface WhoIsData {
   result?: Record<string, any>;
