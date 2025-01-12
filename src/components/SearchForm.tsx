@@ -13,6 +13,8 @@ const SearchForm = () => {
   const { historyPush } = useHistoryModal();
   const [isValid, setIsValid] = useState<boolean>(true);
 
+  const domain = searchParams.get('domain');
+
   useEffect(() => {
     window.addEventListener('keyup', handleKeyUp);
 
@@ -34,12 +36,13 @@ const SearchForm = () => {
 
     const transformedDomain = domainPipe(extractDomain)(searchQuery);
     const isValid = isDomainValid(transformedDomain);
-    if (searchParams.get('domain') === transformedDomain || !isValid) {
+    if (domain === transformedDomain || !isValid) {
       return;
     }
 
     historyPush(transformedDomain);
     setSearchParams({ domain: transformedDomain });
+    setSearchQuery('');
     navigate(`/results?domain=${encodeURIComponent(transformedDomain)}`);
     setTimeout(() => window.scroll(0, 0), 50);
   };
@@ -61,7 +64,7 @@ const SearchForm = () => {
         <input
           type="text"
           className="grow placeholder:text-xs "
-          placeholder="Type a valid domain..."
+          placeholder={domain ?? 'Type a valid domain...'}
           autoFocus
           value={searchQuery}
           onChange={event => setSearchQuery(event.target.value.toLowerCase())}

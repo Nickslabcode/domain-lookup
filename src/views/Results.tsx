@@ -104,10 +104,7 @@ const Results = () => {
     <>
       <Meta loading={isLoading} />
       <Navbar />
-      <ViewContainer className="p-4 mt-10">
-        <H1 className="my-5 text-2xl">
-          Looking up {searchParams.get('domain')}
-        </H1>
+      <ViewContainer className="p-5 mt-16">
         <Markers
           isWhoisLoading={isWhoIsLoading}
           isDnsLoading={isDnsLoading}
