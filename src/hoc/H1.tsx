@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { cn } from '../helpers/cn.helper';
+import { cn } from '../helpers/className/cn.helper';
 
 export const H1: React.FC<{ children: ReactNode; className?: string }> = ({
   className,
