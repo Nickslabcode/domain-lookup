@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 const spinnerFrames = ['◐', '◓', '◑', '◒'];
 
-const Meta = ({ loading }: { loading?: boolean }) => {
+const Meta: React.FC<{ loading?: boolean }> = ({ loading }) => {
   const [searchParams, _setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
   const [currentSpinnerFrame, setCurrentSpinnerFrame] = useState(
@@ -15,7 +15,7 @@ const Meta = ({ loading }: { loading?: boolean }) => {
   const domain = searchParams.get('domain');
 
   const title = `${loading ? currentSpinnerFrame + ' - ' : ''}  ${
-    domain ? `${domain} - ` : ''
+    domain ? domain + ' - ' : ''
   }DomainLookup`;
   const currentUrl = BASE_URL + pathname + search;
 
@@ -26,26 +26,22 @@ const Meta = ({ loading }: { loading?: boolean }) => {
         const nextIndex =
           (spinnerFrames.indexOf(prev) + 1) % spinnerFrames.length;
 
-        console.log(nextIndex);
         return spinnerFrames[nextIndex];
       });
-    }, 200);
+    }, 250);
 
     return () => clearInterval(spinnerInterval);
   }, [loading]);
 
   return (
     <Helmet>
-      <meta charSet="UTF-8" />
-      <link rel="icon" type="image/svg+xml" href="/dl-logo.png" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>{title}</title>
       <meta name="description" content={DESCRIPTION} />
-      <meta name="og:title" content={title} />
-      <meta name="og:type" content={TYPE} />
-      <meta name="og:description" content={DESCRIPTION} />
-      <meta name="og:image" content={`${BASE_URL}/og-dl.png`} />
-      <meta name="og:url" content={currentUrl} />
+      <meta property="og:title" content={title} />
+      <meta property="og:type" content={TYPE} />
+      <meta property="og:description" content={DESCRIPTION} />
+      <meta property="og:image" content={`${BASE_URL}/og-dl.png`} />
+      <meta property="og:url" content={currentUrl} />
     </Helmet>
   );
 };
