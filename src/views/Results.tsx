@@ -18,6 +18,7 @@ import Markers from '../components/Markers';
 import { isWordpressInstalled } from '../services/wpCheck.service';
 import { isCdnActive } from '../services/cdnCheck.service';
 import Meta from '../components/Meta';
+import Loading from '../components/Loading';
 
 interface WhoIsData {
   result?: Record<string, any>;
@@ -42,6 +43,12 @@ const Results = () => {
       ).length > 0
     );
   }, [sslData, searchParams]);
+
+  const filteredDnsData =
+    dnsData &&
+    Object.entries(dnsData).filter(
+      ([_type, answer]) => typeof answer !== 'string'
+    );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isWhoIsLoading, setIsWhoisLoading] = useState<boolean>(false);
@@ -68,7 +75,6 @@ const Results = () => {
             setIsSslLoading(false);
           }),
           getDomainInfo(domain).then(data => {
-            console.log(data);
             setWhoIsData(data);
             setIsWhoisLoading(false);
           }),
@@ -121,14 +127,15 @@ const Results = () => {
         />
         <div className="w-full">
           <H1 className="xl:text-start mb-4">DNS Info</H1>
-          <div className="grid justify-center lg:justify-normal xl:grid-flow-col lg:auto-cols-auto break-words gap-4">
+          <div
+            className={`grid ${
+              filteredDnsData && filteredDnsData.length > 3 ? 'grid-rows-2' : ''
+            } justify-center lg:justify-normal xl:grid-flow-col lg:auto-cols-auto break-words gap-4`}
+          >
             {isDnsLoading ? (
-              <div className="flex justify-center items-center h-full">
-                <span className="loading loading-spinner text-primary"></span>
-              </div>
+              <Loading />
             ) : (
-              dnsData &&
-              Object.entries(dnsData).map(([type, answer]) => {
+              filteredDnsData?.map(([type, answer]) => {
                 return (
                   <React.Fragment key={type}>
                     <Table content={answer} type={type as DnsType} />
