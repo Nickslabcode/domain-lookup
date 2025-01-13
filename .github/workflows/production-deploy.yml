@@ -40,7 +40,7 @@ jobs:
 
       # Clear cache on the server
       - name: Clear cache on the server
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "site-tools-client domain update id=4 flush_cache=1"
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "site-tools-client domain update id=5 flush_cache=1"
 
       # Show link
       - name: Show link
