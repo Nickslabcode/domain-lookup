@@ -11,6 +11,7 @@ const SearchForm = () => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { historyPush } = useHistoryModal();
+  const [transformedDomain, setTransformedDomain] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(true);
 
   const domain = searchParams.get('domain');
@@ -23,26 +24,28 @@ const SearchForm = () => {
 
   useEffect(() => {
     if (!searchQuery) {
-      setIsValid(true);
       return;
     }
-    const transformedDomain = domainPipe(extractDomain)(searchQuery);
 
-    setIsValid(isDomainValid(transformedDomain));
+    setTransformedDomain(domainPipe(extractDomain)(searchQuery));
   }, [searchQuery]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const transformedDomain = domainPipe(extractDomain)(searchQuery);
     const isValid = isDomainValid(transformedDomain);
-    if (domain === transformedDomain || !isValid) {
+
+    if (!isValid) {
+      setIsValid(false);
+      return;
+    } else if (domain === transformedDomain) {
       return;
     }
 
     historyPush(transformedDomain);
     setSearchParams({ domain: transformedDomain });
     setSearchQuery('');
+    setIsValid(true);
     navigate(`/results?domain=${encodeURIComponent(transformedDomain)}`);
     setTimeout(() => window.scroll(0, 0), 50);
   };
