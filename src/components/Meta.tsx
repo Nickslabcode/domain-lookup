@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { BASE_URL, DESCRIPTION, TYPE } from '../constants/meta';
 import { useEffect, useState } from 'react';
+import { punyDecode } from '../helpers/domain/punyDecode.helper';
 
 const spinnerFrames = ['◐', '◓', '◑', '◒'];
 
@@ -14,8 +15,10 @@ const Meta: React.FC<{ loading?: boolean }> = ({ loading }) => {
 
   const domain = searchParams.get('domain');
 
+  const decodedDomain = domain && punyDecode(domain);
+
   const title = `${loading ? currentSpinnerFrame + ' - ' : ''}  ${
-    domain ? domain + ' - ' : ''
+    decodedDomain ? decodedDomain + ' - ' : ''
   }DomainLookup`;
   const currentUrl = BASE_URL + pathname + search;
 

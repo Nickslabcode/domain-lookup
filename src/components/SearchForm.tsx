@@ -5,6 +5,7 @@ import { isDomainValid } from '../helpers/domain/isDomainValid.helper';
 import { domainPipe } from '../helpers/domain/domainPipe.helper';
 import { extractDomainFromUrl } from '../helpers/domain/extractFromUrl.helper';
 import { punyEncode } from '../helpers/domain/punyEncode.helper';
+import { punyDecode } from '../helpers/domain/punyDecode.helper';
 
 const SearchForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,6 +17,7 @@ const SearchForm = () => {
   const [isValid, setIsValid] = useState<boolean>(true);
 
   const domain = searchParams.get('domain');
+  const decodedDomain = domain && punyDecode(domain);
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeyUp);
@@ -72,7 +74,7 @@ const SearchForm = () => {
         <input
           type="text"
           className="grow placeholder:text-xs "
-          placeholder={domain ?? 'Type a valid domain...'}
+          placeholder={decodedDomain ?? 'Type a valid domain...'}
           autoFocus
           value={searchQuery}
           onChange={event => setSearchQuery(event.target.value.toLowerCase())}
