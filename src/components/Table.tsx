@@ -8,7 +8,7 @@ const Table: React.FC<{
 }> = ({ content, type }) => {
   return (
     typeof content !== 'string' && (
-      <div className="flex max-w-xl lg:max-w-full lg:min-w-96 lg:max-h-56 flex-col break-words cursor-default shadow-md p-4 rounded-lg border border-neutral overflow-y-scroll">
+      <div className="flex max-w-xl lg:max-w-full lg:min-w-96 lg:max-h-56 flex-col break-words cursor-default shadow-md p-4 rounded-lg border border-neutral overflow-y-auto">
         <h2 className="font-semibold">{type.toUpperCase()}</h2>
         <table className="table table-xs cursor-default">
           <thead>
