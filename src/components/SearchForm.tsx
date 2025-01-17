@@ -29,7 +29,6 @@ const SearchForm = () => {
     }
 
     const pipeResult = domainPipe(extract, punyEncode)(searchQuery);
-    console.log(pipeResult);
     setTransformedDomain(pipeResult);
   }, [searchQuery]);
 
