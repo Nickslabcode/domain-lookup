@@ -2,9 +2,9 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useHistoryModal } from '../providers/HistoryProvider';
 import { isDomainValid } from '../helpers/domain/isDomainValid.helper';
-import { domainPipe } from '../helpers/domain/domainPipe';
-import { extract } from '../helpers/domain/extract';
-import { punyEncode } from '../helpers/domain/punyEncode';
+import { domainPipe } from '../helpers/domain/domainPipe.helper';
+import { extractDomainFromUrl } from '../helpers/domain/extractFromUrl.helper';
+import { punyEncode } from '../helpers/domain/punyEncode.helper';
 
 const SearchForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,7 +28,10 @@ const SearchForm = () => {
       return;
     }
 
-    const pipeResult = domainPipe(extract, punyEncode)(searchQuery);
+    const pipeResult = domainPipe(
+      extractDomainFromUrl,
+      punyEncode
+    )(searchQuery);
     setTransformedDomain(pipeResult);
   }, [searchQuery]);
 
