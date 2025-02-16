@@ -1,8 +1,8 @@
 export class HomeView {
-  constructor(page, submitButton, searchForm) {
+  constructor(page) {
     this.page = page;
-    this.searchForm = searchForm;
-    this.submitButton = submitButton;
+    this.submitButton = page.getByRole('button', { name: 'Accio!' });
+    this.searchForm = page.getByPlaceholder('Type a valid domain...');
   }
 
   async navigateToHome() {
