@@ -23,7 +23,7 @@ export default defineConfig({
   // workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    headless: false,
+    headless: !!process.env.CI,
     launchOptions: {
       slowMo: 1000,
     },
