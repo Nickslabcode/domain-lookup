@@ -35,7 +35,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@playwright/test": "^1.50.1",
     "@types/autoprefixer": "^10.2.4",
+    "@types/node": "^22.13.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@types/tailwindcss": "^3.1.0",
