@@ -59,7 +59,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Nickslabcode/domain-info-lookup.git"
+    "url": "https://github.com/Nickslabcode/domain-lookup.git"
   },
   "config": {
     "commitizen": {
