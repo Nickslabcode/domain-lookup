@@ -134,3 +134,10 @@ dist
 
 # .vscode
 .vscode
+
+# playwright
+test-results
+playwright-report
+
+# cf-workers
+.dev.vars
