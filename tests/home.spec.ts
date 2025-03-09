@@ -3,6 +3,7 @@ import { HomeView } from './view-objects/HomeView';
 import { DomainUtils } from './utils/DomainUtils';
 import {
   E2E_WORKER_URL,
+  HISTORY_ARRAY,
   HOME_TITLE,
   HOME_URL,
   WORKER_URL_WILDCARD,
@@ -73,5 +74,33 @@ test.describe('checks search form validations', () => {
     );
 
     await page.unroute(WORKER_URL_WILDCARD);
+  });
+});
+
+test.describe('checks history modal', () => {
+  test.beforeEach(async () => {
+    await homeView.populateHistory(HISTORY_ARRAY);
+    await homeView.toggleHistoryModal();
+  });
+
+  test('checks modal visibility', async ({ page }) => {
+    await expect(page.locator('#history_modal')).toHaveAttribute('open');
+  });
+
+  test('should close the history modal', async ({ page }) => {
+    await homeView.toggleHistoryModal();
+
+    await expect(page.locator('#history_modal')).not.toHaveAttribute('open');
+  });
+
+  test('checks table of domains', async ({ page }) => {
+    await expect(page.getByRole('table').locator('tr')).toHaveCount(4);
+  });
+
+  test('checks delete history button', async ({ page }) => {
+    const deleteBtn = page.getByRole('button', { name: 'history' });
+
+    await deleteBtn.click();
+    await expect(page.getByRole('table').locator('tr')).toHaveCount(1);
   });
 });
