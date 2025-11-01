@@ -22,21 +22,21 @@ A production app to streamline domain and site information retrieval for hosting
 
 - **WHOIS, SSL, and DNS Lookup**  
   Retrieve essential domain information, including WHOIS records, SSL details, and DNS configurations in a single search.
-  ![Results view](https://domain-lookup.nikola-nenovski.info/images/results.png)  
+  ![Results view](https://domain-lookup.nikola-nenovski.com/images/results.png)  
 
 - **CDN and WordPress Detection**  
   Detect active CDN services by analyzing response headers and identify if a site is running WordPress (In progress).  
 
 - **Search History**  
   Maintain a history of recent lookups for quick reference and repeated searches.  
-  ![Search History](https://domain-lookup.nikola-nenovski.info/images/search-history-2.gif)  
+  ![Search History](https://domain-lookup.nikola-nenovski.com/images/search-history-2.gif)  
 
 - **Changelog Viewer**  
   Access app version details and updates seamlessly by fetching the project's changelog from the GitHub API.
-  ![Changelog Viewer](https://domain-lookup.nikola-nenovski.info/images/changelog.png)  
+  ![Changelog Viewer](https://domain-lookup.nikola-nenovski.com/images/changelog.png)  
 
 - **Shortcuts**  
   Enhanced with shortcuts for a more efficient workflow.
-  ![Shortcuts](https://domain-lookup.nikola-nenovski.info/images/shortcuts.png)  
+  ![Shortcuts](https://domain-lookup.nikola-nenovski.com/images/shortcuts.png)  
 
 <!-- End of Section -->
