@@ -6,7 +6,7 @@ export class HomeView {
   }
 
   async navigateToHome() {
-    await this.page.goto('https://domain-lookup.nikola-nenovski.info/');
+    await this.page.goto('https://domain-lookup.nikola-nenovski.com/');
   }
 
   async submitDomain(domain) {

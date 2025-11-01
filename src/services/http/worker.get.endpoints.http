@@ -21,7 +21,7 @@ GET {{ WORKER_API_URL }}/whois?domain=abv.bg
 GET http://localhost:8787/wp-check?domain=mrtnbdrv.com
 
 ###
-GET http://localhost:8787/whois?domain=nikola-nenovski.info
+GET http://localhost:8787/whois?domain=nikola-nenovski.com
 
 ###
 GET http://localhost:8787/cdn-check?domain=cexposurefilms.com
@@ -36,7 +36,7 @@ GET {{ WORKER_API_URL }}/wp-check?domain=mrtnbdrv.com
 
 ###
 # @import ./variables.http
-GET {{ WORKER_API_URL }}/wp-check?domain=nikola-nenovski.info
+GET {{ WORKER_API_URL }}/wp-check?domain=nikola-nenovski.com
 
 ###
 

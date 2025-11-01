@@ -7,5 +7,5 @@
 @WORKER_API_URL=https://domainlookup.nicknenovski.workers.dev
 
 @MISSPELLED_DOMAIN=nikola-nenovasasdki.info
-@NOSSL_DOMAIN=nossl.nikola-nenovski.info
-@ACTIVE_DOMAIN=nikola-nenovski.info
+@NOSSL_DOMAIN=nossl.nikola-nenovski.com
+@ACTIVE_DOMAIN=nikola-nenovski.com
